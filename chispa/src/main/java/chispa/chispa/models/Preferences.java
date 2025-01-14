@@ -19,5 +19,6 @@ public class Preferences {
     private int min_age_range;
     private int max_age_range;
     private int max_distance;
+    @Enumerated(EnumType.STRING)
     private String favorite_gender;
 }

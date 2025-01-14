@@ -21,14 +21,17 @@ public class Profile {
     private Users user;
     private String name;
     private String lastName;
+    @Enumerated(EnumType.STRING)
     private String gender;
     @Nullable
     private String location;
     @Nullable
+    @Column(length = 2000)
     private String bio;
     @Nullable
     private String interests;
     private LocalDateTime lastActive;
+    @Enumerated(EnumType.STRING)
     private String preferredRelationship;
 
 }

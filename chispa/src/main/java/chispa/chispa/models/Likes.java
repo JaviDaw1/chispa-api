@@ -22,6 +22,7 @@ public class Likes {
     @ManyToOne
     private Users liked;
     private LocalDateTime timestamp;
+    @Enumerated(EnumType.STRING)
     private String state;
 }
 

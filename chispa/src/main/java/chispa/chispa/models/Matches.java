@@ -23,6 +23,6 @@ public class Matches {
     private Users user2;
     @CreatedDate
     private LocalDate matchDate;
-    @Nullable
+    @Enumerated(EnumType.STRING)
     private String matchState;
 }
