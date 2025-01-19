@@ -1,14 +1,15 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class LikesResponseDTO {
-    private Long id;
-    private Long likerId;
-    private Long likedId;
-    private String timestamp;
-    private String state;
+    private final Long id;
+    private final Users liker;
+    private final Users liked;
+    private final LocalDate timestamp;
+    private final String state;
 }

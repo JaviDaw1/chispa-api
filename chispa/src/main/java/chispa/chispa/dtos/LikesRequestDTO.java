@@ -1,13 +1,12 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class LikesRequestDTO {
-    private Long likerId;
-    private Long likedId;
-    private String state; // ENUM: 'pending', 'accepted', 'rejected'
+    private final Users liker;
+    private final Users liked;
+    private final String state; // ENUM: 'pending', 'accepted', 'rejected'
 
 }

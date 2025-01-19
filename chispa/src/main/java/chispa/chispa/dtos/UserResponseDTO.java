@@ -1,18 +1,15 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDateTime;
+import lombok.Data;
+import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class UserResponseDTO {
-    private Long id;
-    private String userEmail;
-    private String userRole;
-    private String userState;
-    private Integer age;
-    private LocalDateTime joinDate;
-
-
+    private final Long id;
+    private final String email;
+    private final String password;
+    private final String role;
+    private final String state;
+    private final Integer age;
+    private final LocalDate joinDate;
 }

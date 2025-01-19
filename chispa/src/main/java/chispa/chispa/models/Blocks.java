@@ -6,14 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Blocks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class Blocks {
     @ManyToOne
     private Users reported;
     @CreatedDate
-    private LocalDateTime blockDate;
+    private LocalDate blockDate;
     @Nullable
     private String blockReason;
 }

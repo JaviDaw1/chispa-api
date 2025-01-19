@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -30,7 +30,11 @@ public class Profile {
     private String bio;
     @Nullable
     private String interests;
-    private LocalDateTime lastActive;
+    @Nullable
+    private String profilePhoto;
+    private Boolean isOnline;
+    @CreatedDate
+    private LocalDate lastActive;
     @Enumerated(EnumType.STRING)
     private String preferredRelationship;
 

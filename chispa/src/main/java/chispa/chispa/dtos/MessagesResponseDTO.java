@@ -1,15 +1,17 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Matches;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class MessagesResponseDTO {
-    private Long id;
-    private Long matchId;
-    private Long senderUserId;
-    private String content;
-    private String timestamp;
-    private Boolean isRead;
+    private final Long id;
+    private final Matches match;
+    private final Users senderUser;
+    private final String content;
+    private final LocalDate timestamp;
+    private final Integer isRead;
 }

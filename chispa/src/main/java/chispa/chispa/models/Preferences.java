@@ -16,9 +16,9 @@ public class Preferences {
     private Long id;
     @ManyToOne
     private Users user;
-    private int min_age_range;
-    private int max_age_range;
-    private int max_distance;
+    private Integer minAgeRange;
+    private Integer maxAgeRange;
+    private Integer maxDistance;
     @Enumerated(EnumType.STRING)
-    private String favorite_gender;
+    private String favoriteGender;
 }

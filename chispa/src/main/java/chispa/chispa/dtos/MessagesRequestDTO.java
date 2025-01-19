@@ -1,12 +1,13 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Matches;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class MessagesRequestDTO {
-    private Long matchId;
-    private Long senderUserId;
-    private String content;
+    private final Matches match;
+    private final Users senderUser;
+    private final String content;
+    private final Integer isRead;
 }

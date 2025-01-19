@@ -1,15 +1,12 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserRequestDTO {
-    private String userEmail;
-    private String userPassword;
-    private String userRole;
-    private String userState;
-    private Integer age;
-
+    private final String email;
+    private final String password;
+    private final String role;
+    private final String state;
+    private final Integer age;
 }
