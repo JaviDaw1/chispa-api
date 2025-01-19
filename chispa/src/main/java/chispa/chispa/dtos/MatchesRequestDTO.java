@@ -1,12 +1,11 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class MatchesRequestDTO {
-    private Long user1Id;
-    private Long user2Id;
-    private String matchState; //ENUM: 'pending', 'accepted', 'rejected', 'cancelled'
+    private final Users user1;
+    private final Users user2;
+    private final String matchState; //ENUM: 'pending', 'accepted', 'rejected', 'cancelled'
 }

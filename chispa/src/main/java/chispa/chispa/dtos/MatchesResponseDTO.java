@@ -1,14 +1,15 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class MatchesResponseDTO {
-    private Long id;
-    private Long user1Id;
-    private Long user2Id;
-    private String matchDate;
-    private String matchState;
+    private final Long id;
+    private final Users user1;
+    private final Users user2;
+    private final LocalDate matchDate;
+    private final String matchState;
 }

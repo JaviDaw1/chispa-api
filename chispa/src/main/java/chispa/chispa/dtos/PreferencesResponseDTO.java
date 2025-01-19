@@ -1,16 +1,14 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class PreferencesResponseDTO {
-    private Long id;
-    private Long userId;
-    private Integer minAgeRange;
-    private Integer maxAgeRange;
-    private Integer maxDistance;
-    private String favoriteGender;
-
+    private final Long id;
+    private final Users user;
+    private final Integer minAgeRange;
+    private final Integer maxAgeRange;
+    private final Integer maxDistance;
+    private final String favoriteGender;
 }

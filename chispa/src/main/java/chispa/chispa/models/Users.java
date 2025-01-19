@@ -1,13 +1,12 @@
 package chispa.chispa.models;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -24,7 +23,7 @@ public class Users {
     private String role;
     @Enumerated(EnumType.STRING)
     private String state;
-    private int age;
+    private Integer age;
     @CreatedDate
-    private LocalDateTime join_date;
+    private LocalDate joinDate;
 }

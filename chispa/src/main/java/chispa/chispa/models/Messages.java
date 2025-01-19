@@ -22,5 +22,5 @@ public class Messages {
     private Users senderUser;
     private String content;
     private LocalDate timestamp;
-    private int isRead;
+    private Integer isRead;
 }

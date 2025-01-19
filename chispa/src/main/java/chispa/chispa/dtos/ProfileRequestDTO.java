@@ -1,20 +1,20 @@
 package chispa.chispa.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import chispa.chispa.models.Users;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 public class ProfileRequestDTO {
-    private String name;
-    private String lastName;
-    private String gender; // Enum: 'male', 'female', 'other'
-    private String location;
-    private String bio;
-    private String interests;
-    private String profilePhoto;
-    private Boolean isOnline;
-    private String lastActive;
-    private String preferredRelationship;  // Enum: 'friendship', 'casual', 'serious'
-
+    private final Users user;
+    private final String name;
+    private final String lastName;
+    private final String gender; // Enum: 'male', 'female', 'other'
+    private final String location;
+    private final String bio;
+    private final String interests;
+    private final String profilePhoto;
+    private final Boolean isOnline;
+    private final String preferredRelationship;  // Enum: 'friendship', 'casual', 'serious'
 }
