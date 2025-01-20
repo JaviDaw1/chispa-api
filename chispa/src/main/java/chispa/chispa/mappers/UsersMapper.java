@@ -1,7 +1,7 @@
 package chispa.chispa.mappers;
 
-import chispa.chispa.dtos.UserRequestDTO;
-import chispa.chispa.dtos.UserResponseDTO;
+import chispa.chispa.dtos.UsersRequestDTO;
+import chispa.chispa.dtos.UsersResponseDTO;
 import chispa.chispa.models.Users;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +10,8 @@ import java.util.List;
 
 @Component
 public class UsersMapper {
-    public UserResponseDTO toResponse(Users user) {
-        return new UserResponseDTO(
+    public UsersResponseDTO toResponse(Users user) {
+        return new UsersResponseDTO(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
@@ -21,12 +21,12 @@ public class UsersMapper {
                 user.getJoinDate()
         );
     }
-    public List<UserResponseDTO> toResponse(List<Users> users) {
+    public List<UsersResponseDTO> toResponse(List<Users> users) {
         return users.stream()
                 .map(this::toResponse)
                 .toList();
     }
-    public Users toModel(UserRequestDTO userRequestDto) {
+    public Users toModel(UsersRequestDTO userRequestDto) {
         return new Users(
                 null,
                 userRequestDto.getEmail(),

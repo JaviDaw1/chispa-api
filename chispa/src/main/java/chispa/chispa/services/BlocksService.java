@@ -4,7 +4,7 @@ import chispa.chispa.models.Blocks;
 
 import java.util.List;
 
-public interface BlockService {
+public interface BlocksService {
     Blocks findById(Long id);
 
     Blocks save(Blocks block);
@@ -15,7 +15,15 @@ public interface BlockService {
 
     List<Blocks> findAll();
 
+    Blocks patch(Long id, Blocks block);
+
+    Long countBlocks();
+
     List<Blocks> findByReporterId(Long reporterId);
 
-    Long countTotalBlocks();
+    Long countTotalBlocksByReporterId(Long reporterId);
+
+    Long countTotalBlocksByReportedId(Long reportedId);
+
+    List<Blocks> findByReportedId(Long reportedId);
 }

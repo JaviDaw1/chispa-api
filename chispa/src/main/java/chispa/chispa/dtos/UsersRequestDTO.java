@@ -3,7 +3,7 @@ package chispa.chispa.dtos;
 import lombok.Data;
 
 @Data
-public class UserRequestDTO {
+public class UsersRequestDTO {
     private final String email;
     private final String password;
     private final String role;
