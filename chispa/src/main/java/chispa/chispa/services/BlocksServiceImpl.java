@@ -21,20 +21,24 @@ public class BlocksServiceImpl implements BlocksService {
     public List<Blocks> findAll() {
         return blocksRepository.findAll();
     }
+
     @Override
     public Blocks findById(Long id) {
-        return blocksRepository.findById(id).orElseThrow();
+        return blocksRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Blocks not found"));
     }
+
     @Override
     public void deleteById(Long id) {
         blocksRepository.deleteById(id);
     }
+
     @Override
     public Blocks save(Blocks block) {
         block.setReporter(usersRepository.findById(block.getReporter().getId()).get());
         block.setReported(usersRepository.findById(block.getReported().getId()).get());
         return blocksRepository.save(block);
     }
+
     @Override
     public Blocks update(Long id, Blocks block) {
         Blocks updated = this.findById(id);
@@ -44,31 +48,45 @@ public class BlocksServiceImpl implements BlocksService {
         updated.setBlockReason(block.getBlockReason());
         return blocksRepository.save(updated);
     }
+
     @Override
     public Blocks patch(Long id, Blocks block) {
         Blocks blockToPatch = blocksRepository.findById(id).orElseThrow();
-        if(block.getReporter() != null){blockToPatch.setReporter(block.getReporter());}
-        if(block.getReported() != null){blockToPatch.setReported(block.getReported());}
-        if(block.getBlockDate() != null){blockToPatch.setBlockDate(LocalDate.now());}
-        if(block.getBlockReason() != null){blockToPatch.setBlockReason(block.getBlockReason());}
+        if (block.getReporter() != null) {
+            blockToPatch.setReporter(block.getReporter());
+        }
+        if (block.getReported() != null) {
+            blockToPatch.setReported(block.getReported());
+        }
+        if (block.getBlockDate() != null) {
+            blockToPatch.setBlockDate(LocalDate.now());
+        }
+        if (block.getBlockReason() != null) {
+            blockToPatch.setBlockReason(block.getBlockReason());
+        }
         return blocksRepository.save(blockToPatch);
     }
+
     @Override
     public Long countBlocks() {
         return blocksRepository.count();
     }
+
     @Override
     public Long countTotalBlocksByReporterId(Long reporterId) {
         return blocksRepository.countBlocksByReporterId(reporterId);
     }
+
     @Override
     public Long countTotalBlocksByReportedId(Long reportedId) {
         return blocksRepository.countBlocksByReportedId(reportedId);
     }
+
     @Override
     public List<Blocks> findByReporterId(Long reporterId) {
         return blocksRepository.findByReporterId(reporterId);
     }
+
     @Override
     public List<Blocks> findByReportedId(Long reportedId) {
         return blocksRepository.findByReportedId(reportedId);

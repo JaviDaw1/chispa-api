@@ -4,7 +4,8 @@ import chispa.chispa.models.Preferences;
 
 import java.util.List;
 
-public interface PreferenceService {
+
+public interface PreferencesService {
     Preferences findById(Long id);
 
     Preferences findByUserId(Long userId);
