@@ -1,29 +1,34 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.UserState;
 import chispa.chispa.repositories.UsersRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Transactional
 @Service
 @AllArgsConstructor
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl implements UsersService, UserDetailsService {
+
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Users findById(Long id) {
-        return usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Users not found"));
+        return usersRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
     @Override
     public Users save(Users user) {
-        user.setJoinDate(usersRepository.findById(user.getId()).get().getJoinDate());
-        user.setPassword(usersRepository.findById(user.getId()).get().getPassword());
-        user.setEmail(usersRepository.findById(user.getId()).get().getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return usersRepository.save(user);
     }
 
@@ -31,7 +36,10 @@ public class UsersServiceImpl implements UsersService {
     public Users update(Long id, Users user) {
         Users updatedUser = this.findById(id);
         updatedUser.setEmail(user.getEmail());
-        updatedUser.setPassword(user.getPassword());
+
+        if (!updatedUser.getPassword().equals(user.getPassword())) {
+            updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         updatedUser.setJoinDate(user.getJoinDate());
         updatedUser.setAge(user.getAge());
         updatedUser.setState(user.getState());
@@ -44,8 +52,8 @@ public class UsersServiceImpl implements UsersService {
         if (user.getEmail() != null) {
             userToPatch.setEmail(user.getEmail());
         }
-        if (user.getPassword() != null) {
-            userToPatch.setPassword(user.getPassword());
+        if (user.getPassword() != null && !userToPatch.getPassword().equals(user.getPassword())) {
+            userToPatch.setPassword(passwordEncoder.encode(user.getPassword()));  // Codificamos la nueva contraseña
         }
         if (user.getRole() != null) {
             userToPatch.setRole(user.getRole());
@@ -75,17 +83,21 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Long countActiveUsers() {
-        return usersRepository.countUsersByState("Active");
-    }
-
-    @Override
     public Long countAllUsers() {
         return usersRepository.count();
     }
 
     @Override
-    public List<Users> findUsersByState(String state) {
+    public Long countUsersByState(UserState state) {
+        return usersRepository.countUsersByState(state);
+    }
+
+    @Override
+    public List<Users> findUsersByState(UserState state) {
         return usersRepository.findByState(state);
+    }
+
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return (UserDetails) usersRepository.findByEmail(email);
     }
 }

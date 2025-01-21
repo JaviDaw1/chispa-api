@@ -1,5 +1,6 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.FavoriteGender;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,5 +21,5 @@ public class Preferences {
     private Integer maxAgeRange;
     private Integer maxDistance;
     @Enumerated(EnumType.STRING)
-    private String favoriteGender;
+    private FavoriteGender favoriteGender;
 }

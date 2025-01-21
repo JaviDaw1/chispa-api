@@ -7,7 +7,14 @@ import java.util.List;
 
 public interface BlocksRepository extends JpaRepository<Blocks, Long> {
     Long countBlocksByReporterId(Long reporterId);
+
     Long countBlocksByReportedId(Long reportedId);
+
     List<Blocks> findByReporterId(Long reporterId);
+
     List<Blocks> findByReportedId(Long reportedId);
+
+    void deleteByReporterId(Long reporterId);
+
+    void deleteByReportedId(Long reportedId);
 }

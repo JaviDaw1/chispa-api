@@ -1,5 +1,7 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.Gender;
+import chispa.chispa.models.enums.PreferredRelationship;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ public class Profile {
     private String name;
     private String lastName;
     @Enumerated(EnumType.STRING)
-    private String gender;
+    private Gender gender;
     @Nullable
     private String location;
     @Nullable
@@ -36,6 +38,6 @@ public class Profile {
     @CreatedDate
     private LocalDate lastActive;
     @Enumerated(EnumType.STRING)
-    private String preferredRelationship;
+    private PreferredRelationship preferredRelationship;
 
 }

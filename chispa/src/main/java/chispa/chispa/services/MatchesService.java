@@ -2,6 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Matches;
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.MatchState;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public interface MatchesService {
 
     List<Matches> findByUserId(Long userId);
 
-    Long countAcceptedMatches();
+    List<Matches> findMatchesByMatchState(MatchState matchState);
 
-    Long countRejectedMatches();
+    Long countMatchesByMatchState(MatchState matchState);
 
     Matches patch(Long id, Matches matches);
 }

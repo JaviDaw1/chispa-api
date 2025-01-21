@@ -1,5 +1,7 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.UserRole;
+import chispa.chispa.models.enums.UserState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +22,9 @@ public class Users {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private String role;
+    private UserRole role;
     @Enumerated(EnumType.STRING)
-    private String state;
+    private UserState state;
     private Integer age;
     @CreatedDate
     private LocalDate joinDate;

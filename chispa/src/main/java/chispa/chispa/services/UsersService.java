@@ -1,6 +1,7 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.UserState;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ public interface UsersService {
 
     Users findByEmail(String email);
 
-    Long countActiveUsers();
-
     Long countAllUsers();
 
-    List<Users> findUsersByState(String state);
+    Long countUsersByState(UserState state);
+
+    List<Users> findUsersByState(UserState state);
 }

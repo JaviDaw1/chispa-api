@@ -83,8 +83,8 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public Long countTotalLikes() {
-        return likesRepository.countAllLikes();
+    public Long countTotalLikes(){
+        return likesRepository.count();
     }
 
     @Override

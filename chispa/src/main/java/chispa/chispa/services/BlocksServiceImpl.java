@@ -28,11 +28,6 @@ public class BlocksServiceImpl implements BlocksService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        blocksRepository.deleteById(id);
-    }
-
-    @Override
     public Blocks save(Blocks block) {
         block.setReporter(usersRepository.findById(block.getReporter().getId()).get());
         block.setReported(usersRepository.findById(block.getReported().getId()).get());
@@ -47,6 +42,21 @@ public class BlocksServiceImpl implements BlocksService {
         updated.setBlockDate(LocalDate.now());
         updated.setBlockReason(block.getBlockReason());
         return blocksRepository.save(updated);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        blocksRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByReporterId(Long reporterId) {
+        blocksRepository.deleteByReporterId(reporterId);
+    }
+
+    @Override
+    public void deleteByReportedId(Long reportedId) {
+        blocksRepository.deleteByReportedId(reportedId);
     }
 
     @Override

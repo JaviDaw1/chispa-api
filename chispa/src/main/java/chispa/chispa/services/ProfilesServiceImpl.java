@@ -1,10 +1,14 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Profile;
+import chispa.chispa.models.enums.Gender;
+import chispa.chispa.models.enums.PreferredRelationship;
 import chispa.chispa.repositories.ProfilesRepository;
 import chispa.chispa.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,7 +19,6 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class ProfilesServiceImpl implements ProfilesService {
-
     private final ProfilesRepository profileRepository;
     private final UsersRepository usersRepository;
 
@@ -62,17 +65,12 @@ public class ProfilesServiceImpl implements ProfilesService {
     }
 
     @Override
-    public Map<String, Long> countProfilesByPreferredRelationship(String preferredRelationship) {
+    public Map<PreferredRelationship, Long> countProfilesByPreferredRelationship(PreferredRelationship preferredRelationship) {
         return profileRepository.countProfilesByPreferredRelationship(preferredRelationship);
     }
 
     @Override
-    public List<Profile> findProfilesByAgeRange(Integer minAge, Integer maxAge) {
-        return profileRepository.findProfilesByAgeRange(minAge, maxAge);
-    }
-
-    @Override
-    public List<Profile> findProfilesByGender(String gender) {
+    public List<Profile> findProfilesByGender(Gender gender) {
         return profileRepository.findProfileByGender(gender);
     }
 }

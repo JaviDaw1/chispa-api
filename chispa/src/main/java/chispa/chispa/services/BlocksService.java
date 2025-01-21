@@ -13,6 +13,10 @@ public interface BlocksService {
 
     void deleteById(Long id);
 
+    void deleteByReporterId(Long reporterId);
+
+    void deleteByReportedId(Long reportedId);
+
     List<Blocks> findAll();
 
     Blocks patch(Long id, Blocks block);
@@ -26,4 +30,6 @@ public interface BlocksService {
     Long countTotalBlocksByReportedId(Long reportedId);
 
     List<Blocks> findByReportedId(Long reportedId);
+
+
 }

@@ -1,6 +1,8 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Profile;
+import chispa.chispa.models.enums.Gender;
+import chispa.chispa.models.enums.PreferredRelationship;
 
 import java.util.List;
 import java.util.Map;
@@ -18,9 +20,7 @@ public interface ProfilesService {
 
     List<Profile> findAll();
 
-    Map<String, Long> countProfilesByPreferredRelationship(String preferredRelationship);
+    Map<PreferredRelationship, Long> countProfilesByPreferredRelationship(PreferredRelationship preferredRelationship);
 
-    List<Profile> findProfilesByAgeRange(Integer minAge, Integer maxAge);
-
-    List<Profile> findProfilesByGender(String gender);
+    List<Profile> findProfilesByGender(Gender gender);
 }

@@ -1,6 +1,7 @@
 package chispa.chispa.dtos;
 
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.LikeState;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,5 +12,5 @@ public class LikesResponseDTO {
     private final Users liker;
     private final Users liked;
     private final LocalDate timestamp;
-    private final String state;
+    private final LikeState state;
 }

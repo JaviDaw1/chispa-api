@@ -1,14 +1,12 @@
 package chispa.chispa.models;
 
-import jakarta.annotation.Nullable;
+import chispa.chispa.models.enums.LikeState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -24,5 +22,5 @@ public class Likes {
     private Users liked;
     private LocalDate timestamp;
     @Enumerated(EnumType.STRING)
-    private String state;
+    private LikeState state;
 }

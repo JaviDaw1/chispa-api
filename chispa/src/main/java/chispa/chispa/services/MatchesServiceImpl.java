@@ -2,6 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Matches;
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.MatchState;
 import chispa.chispa.repositories.MatchesRepository;
 import chispa.chispa.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
@@ -57,13 +58,13 @@ public class MatchesServiceImpl implements MatchesService {
     }
 
     @Override
-    public Long countAcceptedMatches() {
-        return matchesRepository.countByState("ACCEPTED");
+    public List<Matches> findMatchesByMatchState(MatchState matchState) {
+        return matchesRepository.findMatchesByMatchState(matchState);
     }
 
     @Override
-    public Long countRejectedMatches() {
-        return matchesRepository.countByState("REJECTED");
+    public Long countMatchesByMatchState(MatchState matchState) {
+        return matchesRepository.countByMatchState(matchState);
     }
 
     @Override

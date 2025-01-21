@@ -1,6 +1,7 @@
 package chispa.chispa.dtos;
 
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.FavoriteGender;
 import lombok.Data;
 
 @Data
@@ -10,5 +11,5 @@ public class PreferencesResponseDTO {
     private final Integer minAgeRange;
     private final Integer maxAgeRange;
     private final Integer maxDistance;
-    private final String favoriteGender;
+    private final FavoriteGender favoriteGender;
 }

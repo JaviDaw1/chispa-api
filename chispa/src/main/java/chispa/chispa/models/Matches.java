@@ -1,5 +1,6 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.MatchState;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,5 +25,5 @@ public class Matches {
     @CreatedDate
     private LocalDate matchDate;
     @Enumerated(EnumType.STRING)
-    private String matchState;
+    private MatchState matchState;
 }
