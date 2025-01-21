@@ -3,6 +3,7 @@ package chispa.chispa.services;
 import chispa.chispa.models.Profile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProfilesService {
     Profile findById(Long id);
@@ -16,7 +17,10 @@ public interface ProfilesService {
     void deleteById(Long id);
 
     List<Profile> findAll();
-    //Map<String, Long> countProfilesByPreferredRelationship(); //Esto lo podriamos implementar si es factible
-    // List<Profile> findProfilesByAgeRange();
-    // List<Profile> findProfilesByGender();
+
+    Map<String, Long> countProfilesByPreferredRelationship(String preferredRelationship);
+
+    List<Profile> findProfilesByAgeRange(Integer minAge, Integer maxAge);
+
+    List<Profile> findProfilesByGender(String gender);
 }

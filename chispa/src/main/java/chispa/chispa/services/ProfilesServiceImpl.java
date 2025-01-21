@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Service
@@ -60,5 +61,18 @@ public class ProfilesServiceImpl implements ProfilesService {
         return profileRepository.findAll();
     }
 
+    @Override
+    public Map<String, Long> countProfilesByPreferredRelationship(String preferredRelationship) {
+        return profileRepository.countProfilesByPreferredRelationship(preferredRelationship);
+    }
 
+    @Override
+    public List<Profile> findProfilesByAgeRange(Integer minAge, Integer maxAge) {
+        return profileRepository.findProfilesByAgeRange(minAge, maxAge);
+    }
+
+    @Override
+    public List<Profile> findProfilesByGender(String gender) {
+        return profileRepository.findProfileByGender(gender);
+    }
 }

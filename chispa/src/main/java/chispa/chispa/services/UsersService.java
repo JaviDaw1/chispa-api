@@ -17,6 +17,8 @@ public interface UsersService {
 
     List<Users> findAll();
 
+    //List<Users> findUsersByIncompleteProfiles(List<Profile> profiles);
+
     Users findByEmail(String email);
 
     Long countActiveUsers();
