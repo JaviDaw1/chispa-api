@@ -24,4 +24,6 @@ public interface UsersService {
     Long countActiveUsers();
 
     Long countAllUsers();
+
+    List<Users> findUsersByState(String state);
 }

@@ -11,6 +11,7 @@ public class MessagesResponseDTO {
     private final Long id;
     private final Matches match;
     private final Users senderUser;
+    private final Users receiverUser;
     private final String content;
     private final LocalDate timestamp;
     private final Integer isRead;

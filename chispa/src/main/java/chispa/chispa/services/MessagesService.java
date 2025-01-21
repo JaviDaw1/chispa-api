@@ -17,8 +17,6 @@ public interface MessagesService {
 
     List<Messages> findByMatchId(Long matchId);
 
-    Long countByMatchId(Long matchId);
-
     public Messages patch(Long id, Messages message);
 }
 

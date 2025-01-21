@@ -24,7 +24,7 @@ public class MessagesServiceImpl implements MessagesService {
     @Override
     public Messages save(Messages message) {
         message.setSenderUser(usersRepository.findById(message.getSenderUser().getId()).orElseThrow());
-        // message.setReciverUser(usersRepository.findById(message.getSenderUser().getId()).orElseThrow()); HAY QUE IMPLEMENTAR EL QUE LO RECIBE
+        message.setReceiverUser(usersRepository.findById(message.getSenderUser().getId()).orElseThrow());
         return messagesRepository.save(message);
     }
 
@@ -49,12 +49,6 @@ public class MessagesServiceImpl implements MessagesService {
     @Override
     public List<Messages> findByMatchId(Long matchId) {
         return messagesRepository.findByMatchId(matchId);
-    }
-
-
-    @Override
-    public Long countByMatchId(Long matchId) {
-        return messagesRepository.countByMatchId(matchId);
     }
 
     @Override

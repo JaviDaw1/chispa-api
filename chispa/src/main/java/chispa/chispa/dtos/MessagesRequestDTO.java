@@ -8,6 +8,7 @@ import lombok.Data;
 public class MessagesRequestDTO {
     private final Matches match;
     private final Users senderUser;
+    private final Users receiverUser;
     private final String content;
     private final Integer isRead;
 }

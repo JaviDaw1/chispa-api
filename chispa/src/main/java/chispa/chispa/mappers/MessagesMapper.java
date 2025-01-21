@@ -15,6 +15,7 @@ public class MessagesMapper {
                 messages.getId(),
                 messages.getMatch(),
                 messages.getSenderUser(),
+                messages.getReceiverUser(),
                 messages.getContent(),
                 messages.getTimestamp(),
                 messages.getIsRead()
@@ -30,6 +31,7 @@ public class MessagesMapper {
                 null,
                 messagesRequestDto.getMatch(),
                 messagesRequestDto.getSenderUser(),
+                messagesRequestDto.getReceiverUser(),
                 messagesRequestDto.getContent(),
                 LocalDate.now(),
                 messagesRequestDto.getIsRead()

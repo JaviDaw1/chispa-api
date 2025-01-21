@@ -20,6 +20,8 @@ public class Messages {
     private Matches match;
     @ManyToOne
     private Users senderUser;
+    @ManyToOne
+    private Users receiverUser;
     private String content;
     private LocalDate timestamp;
     private Integer isRead;

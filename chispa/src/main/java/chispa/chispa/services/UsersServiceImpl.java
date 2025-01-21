@@ -83,4 +83,9 @@ public class UsersServiceImpl implements UsersService {
     public Long countAllUsers() {
         return usersRepository.count();
     }
+
+    @Override
+    public List<Users> findUsersByState(String state) {
+        return usersRepository.findByState(state);
+    }
 }
