@@ -58,9 +58,9 @@ public class BlocksController {
             @RequestBody BlocksRequestDTO blocksRequestDto
     ) {
         log.info("putBlocks");
-        Blocks asessmentsUpdated = blocksService.update(id, blocksMapper.toModel(blocksRequestDto));
+        Blocks blockUpdated = blocksService.update(id, blocksMapper.toModel(blocksRequestDto));
         return ResponseEntity.ok(
-                blocksMapper.toResponse(asessmentsUpdated)
+                blocksMapper.toResponse(blockUpdated)
         );
     }
 
@@ -82,9 +82,9 @@ public class BlocksController {
     ) {
         log.info("patchGeneralBlocks");
 
-        Blocks asessmentsPatched = blocksService.patch(id, blocksMapper.toModel(blocksRequestDto));
+        Blocks blockPatched = blocksService.patch(id, blocksMapper.toModel(blocksRequestDto));
 
-        return ResponseEntity.ok(blocksMapper.toResponse(asessmentsPatched));
+        return ResponseEntity.ok(blocksMapper.toResponse(blockPatched));
     }
 
     @GetMapping("/reporter/{reporterId}")

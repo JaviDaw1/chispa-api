@@ -1,4 +1,4 @@
-/*
+
 package chispa.chispa.auth;
 
 import chispa.chispa.models.enums.UserRole;
@@ -34,4 +34,4 @@ public class JwtService {
         return token;
     }
 }
-*/
+

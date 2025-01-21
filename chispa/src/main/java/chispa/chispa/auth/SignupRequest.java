@@ -1,4 +1,4 @@
-/*
+
 package chispa.chispa.auth;
 
 import chispa.chispa.models.enums.UserRole;
@@ -14,4 +14,3 @@ public class SignupRequest {
     private UserRole role;
 }
 
-*/
