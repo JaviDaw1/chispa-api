@@ -1,14 +1,15 @@
 package chispa.chispa.dtos;
 
-import chispa.chispa.models.enums.UserRole;
-import chispa.chispa.models.enums.UserState;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class UsersRequestDTO {
+    private final String firstname;
+    private final String lastname;
+    private final String username;
     private final String email;
     private final String password;
-    private final UserRole role;
-    private final UserState state;
-    private final Integer age;
+
 }

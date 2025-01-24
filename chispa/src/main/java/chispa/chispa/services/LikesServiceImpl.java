@@ -2,7 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Likes;
 import chispa.chispa.repositories.LikesRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LikesServiceImpl implements LikesService {
     private final LikesRepository likesRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public List<Likes> findAll() {

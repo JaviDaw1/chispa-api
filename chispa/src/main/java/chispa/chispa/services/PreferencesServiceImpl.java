@@ -2,7 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Preferences;
 import chispa.chispa.repositories.PreferencesRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PreferencesServiceImpl implements PreferencesService {
     private final PreferencesRepository preferencesRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public Preferences findById(Long id) {

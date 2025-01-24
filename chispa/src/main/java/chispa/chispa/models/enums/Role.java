@@ -13,7 +13,7 @@ import static chispa.chispa.models.enums.Permission.*;
 
 @Getter
 @RequiredArgsConstructor
-public enum UserRole {
+public enum Role {
     USER(Collections.emptySet()),
     ADMIN(
             Set.of(

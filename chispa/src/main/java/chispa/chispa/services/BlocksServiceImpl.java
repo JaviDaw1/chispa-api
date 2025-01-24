@@ -2,7 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Blocks;
 import chispa.chispa.repositories.BlocksRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional
 public class BlocksServiceImpl implements BlocksService {
     private final BlocksRepository blocksRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public List<Blocks> findAll() {

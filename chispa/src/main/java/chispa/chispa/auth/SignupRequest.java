@@ -1,7 +1,7 @@
 
 package chispa.chispa.auth;
 
-import chispa.chispa.models.enums.UserRole;
+import chispa.chispa.models.enums.Role;
 import lombok.Data;
 
 @Data
@@ -11,6 +11,6 @@ public class SignupRequest {
     private String username;
     private String email;
     private String password;
-    private UserRole role;
+    private Role UserRole;
 }
 

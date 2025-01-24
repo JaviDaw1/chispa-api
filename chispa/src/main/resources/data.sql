@@ -1,89 +1,95 @@
 -- Crear tablas si no existen
-CREATE TABLE IF NOT EXISTS Users (
-                                     id INT AUTO_INCREMENT PRIMARY KEY,
-                                     userEmail VARCHAR(255) NOT NULL,
-    userPassword VARCHAR(255) NOT NULL,
-    userRole VARCHAR(50) NOT NULL,
-    userState VARCHAR(50) NOT NULL,
-    age INT NOT NULL
-    );
+CREATE TABLE IF NOT EXISTS user_ (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('USER', 'ADMIN') DEFAULT 'USER'
+);
 
-CREATE TABLE IF NOT EXISTS Profile (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       user_id INT,
-                                       name VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    gender VARCHAR(50),
+
+CREATE TABLE IF NOT EXISTS profile (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
     location VARCHAR(255),
     bio TEXT,
     interests TEXT,
     profilePhoto VARCHAR(255),
-    isOnline BOOLEAN,
-    lastActive TIMESTAMP,
-    preferredRelationship VARCHAR(50),
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    isOnline TINYINT(1) DEFAULT 0,
+    lastActive DATETIME,
+    preferredRelationship ENUM('friendship', 'casual', 'serious') DEFAULT 'friendship',
+    FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS Preferences (
-                                           id INT AUTO_INCREMENT PRIMARY KEY,
-                                           user_id INT,
-                                           minAgeRange INT,
-                                           maxAgeRange INT,
-                                           maxDistance INT,
-                                           favoriteGender VARCHAR(50),
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS preferences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    minAgeRange INT NOT NULL,
+    maxAgeRange INT NOT NULL,
+    maxDistance INT NOT NULL,
+    favoriteGender ENUM('male', 'female', 'other') NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS Matches (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       user1_id INT,
-                                       user2_id INT,
-                                       matchState VARCHAR(50),
-    FOREIGN KEY (user1_id) REFERENCES Users(id),
-    FOREIGN KEY (user2_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS matches (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user1_id INT NOT NULL,
+    user2_id INT NOT NULL,
+    matchDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    matchState ENUM('pending', 'accepted', 'rejected', 'cancelled') DEFAULT 'pending',
+    FOREIGN KEY (user1_id) REFERENCES user_(id) ON DELETE CASCADE,
+    FOREIGN KEY (user2_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS Messages (
-                                        id INT AUTO_INCREMENT PRIMARY KEY,
-                                        match_id INT,
-                                        senderUser_id INT,
-                                        receiverUser_id INT,
-                                        content TEXT,
-                                        isRead BOOLEAN,
-                                        FOREIGN KEY (match_id) REFERENCES Matches(id),
-    FOREIGN KEY (senderUser_id) REFERENCES Users(id),
-    FOREIGN KEY (receiverUser_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    match_id INT NOT NULL,
+    senderUser_id INT NOT NULL,
+    receiverUser_id INT NOT NULL,
+    content TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    isRead TINYINT(1) DEFAULT 0,
+    FOREIGN KEY (match_id) REFERENCES Matches(id) ON DELETE CASCADE,
+    FOREIGN KEY (senderUser_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS Likes (
-                                     id INT AUTO_INCREMENT PRIMARY KEY,
-                                     liker_id INT,
-                                     liked_id INT,
-                                     state VARCHAR(50),
-    FOREIGN KEY (liker_id) REFERENCES Users(id),
-    FOREIGN KEY (liked_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    liker_id INT NOT NULL,
+    liked_id INT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    state ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (liker_id) REFERENCES user_(id) ON DELETE CASCADE,
+    FOREIGN KEY (liked_id) REFERENCES user_(id) ON DELETE CASCADE
+
     );
 
-CREATE TABLE IF NOT EXISTS Blocks (
-                                      id INT AUTO_INCREMENT PRIMARY KEY,
-                                      reporter_id INT,
-                                      reported_id INT,
-                                      blockDate TIMESTAMP,
-                                      blockReason TEXT,
-                                      FOREIGN KEY (reporter_id) REFERENCES Users(id),
-    FOREIGN KEY (reported_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS blocks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reporter_id INT NOT NULL,
+    reported_id INT NOT NULL,
+    blockDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    blockReason TEXT,
+    FOREIGN KEY (reporter_id) REFERENCES user_(id) ON DELETE CASCADE,
+    FOREIGN KEY (reported_id) REFERENCES user_(id) ON DELETE CASCADE
+
     );
 
--- Insertar Datos en la Tabla Users
-INSERT INTO Users (userEmail, userPassword, userRole, userState, age)
+-- Insertar Datos en la Tabla user_
+INSERT INTO user_ (firstname, lastname, username, email, password, role)
 VALUES
-    ('juan.perez@ejemplo.com', 'contraseña_cifrada_1', 'user', 'active', 28),
-    ('maria.garcia@ejemplo.com', 'contraseña_cifrada_2', 'user', 'active', 32),
-    ('admin@ejemplo.com', 'contraseña_cifrada_3', 'admin', 'active', 35)
-    ON DUPLICATE KEY UPDATE userEmail=userEmail; -- Evita duplicados si ya existen.
+    ('Juan', 'Perez', 'juan.perez', 'juan.perez@ejemplo.com', 'contraseña_cifrada_1', 'USER'),
+    ('Maria', 'Garcia', 'maria.garcia', 'maria.garcia@ejemplo.com', 'contraseña_cifrada_2', 'USER'),
+    ('Admin', 'Admin', 'admin', 'admin@ejemplo.com', 'contraseña_cifrada_3', 'ADMIN')
+    ON DUPLICATE KEY UPDATE email=email; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Profile
-INSERT INTO Profile (user_id, name, lastName, gender, location, bio, interests, profilePhoto, isOnline, lastActive, preferredRelationship)
+INSERT INTO profile (user_id, name, lastName, gender, location, bio, interests, profilePhoto, isOnline, lastActive, preferredRelationship)
 VALUES
     (1, 'Juan', 'Pérez', 'male', 'Madrid, España', 'Amante de los libros y el café.', 'Leer, Senderismo', 'https://ejemplo.com/imagenes/juan.jpg', 1, NOW(), 'friendship'),
     (2, 'María', 'García', 'female', 'Barcelona, España', 'Entusiasta de la tecnología y jugadora.', 'Videojuegos, Viajar', 'https://ejemplo.com/imagenes/maria.jpg', 0, NOW(), 'serious'),
@@ -91,7 +97,7 @@ VALUES
     ON DUPLICATE KEY UPDATE user_id=user_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Preferences
-INSERT INTO Preferences (user_id, minAgeRange, maxAgeRange, maxDistance, favoriteGender)
+INSERT INTO preferences (user_id, minAgeRange, maxAgeRange, maxDistance, favoriteGender)
 VALUES
     (1, 25, 35, 50, 'female'),
     (2, 30, 40, 100, 'male'),
@@ -99,7 +105,7 @@ VALUES
     ON DUPLICATE KEY UPDATE user_id=user_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Matches
-INSERT INTO Matches (user1_id, user2_id, matchState)
+INSERT INTO matches (user1_id, user2_id, matchState)
 VALUES
     (1, 2, 'pending'),
     (2, 3, 'accepted'),
@@ -107,7 +113,7 @@ VALUES
     ON DUPLICATE KEY UPDATE user1_id=user1_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Messages
-INSERT INTO Messages (match_id, senderUser_id, receiverUser_id, content, isRead)
+INSERT INTO messages (match_id, senderUser_id, receiverUser_id, content, isRead)
 VALUES
     (1, 1, 2, '¡Hola! ¿Cómo estás?', 0),
     (1, 2, 1,'Estoy bien, ¡gracias! ¿Y tú?', 0),
@@ -115,15 +121,15 @@ VALUES
     ON DUPLICATE KEY UPDATE match_id=match_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Likes
-INSERT INTO Likes (liker_id, liked_id, state)
+INSERT INTO likes (liker_id, liked_id, state)
 VALUES
     (1, 2, 'pending'),
     (2, 1, 'accepted'),
     (3, 1, 'rejected')
     ON DUPLICATE KEY UPDATE liker_id=liker_id; -- Evita duplicados si ya existen.
 
--- Insertar Datos en la Tabla Blocks
-INSERT INTO Blocks (reporter_id, reported_id, blockDate, blockReason)
+-- Insertar Datos en la Tabla blocks
+INSERT INTO blocks (reporter_id, reported_id, blockDate, blockReason)
 VALUES
     (1, 3, NOW(), 'Envío de mensajes no deseados'),
     (2, 3, NOW(), 'Contenido inapropiado'),

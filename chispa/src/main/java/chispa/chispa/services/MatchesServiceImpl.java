@@ -4,7 +4,7 @@ import chispa.chispa.models.Matches;
 import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.MatchState;
 import chispa.chispa.repositories.MatchesRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MatchesServiceImpl implements MatchesService {
     private final MatchesRepository matchesRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public Matches findById(Long id) {

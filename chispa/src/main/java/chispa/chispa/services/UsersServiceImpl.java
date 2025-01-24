@@ -1,3 +1,4 @@
+/*
 package chispa.chispa.services;
 
 import chispa.chispa.models.Users;
@@ -101,3 +102,4 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
         return (UserDetails) usersRepository.findByEmail(email);
     }
 }
+*/

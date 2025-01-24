@@ -2,7 +2,7 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Messages;
 import chispa.chispa.repositories.MessagesRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MessagesServiceImpl implements MessagesService {
     private final MessagesRepository messagesRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public Messages findById(Long id) {

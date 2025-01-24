@@ -4,11 +4,9 @@ import chispa.chispa.models.Profile;
 import chispa.chispa.models.enums.Gender;
 import chispa.chispa.models.enums.PreferredRelationship;
 import chispa.chispa.repositories.ProfilesRepository;
-import chispa.chispa.repositories.UsersRepository;
+import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,7 +18,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ProfilesServiceImpl implements ProfilesService {
     private final ProfilesRepository profileRepository;
-    private final UsersRepository usersRepository;
+    private final UsersDetailsRepository usersRepository;
 
     @Override
     public Profile findById(Long id) {

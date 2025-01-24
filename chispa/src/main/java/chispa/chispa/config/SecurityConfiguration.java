@@ -2,8 +2,8 @@
 package chispa.chispa.config;
 
 import chispa.chispa.auth.JwtAuthenticationFilter;  // Asegúrate de que la ruta es correcta
-import chispa.chispa.repositories.UserDetailsRepository;  // Asegúrate de que la ruta es correcta
-import chispa.chispa.services.UserDetailsServiceImpl;  // Asegúrate de que la ruta es correcta
+import chispa.chispa.repositories.UsersDetailsRepository;  // Asegúrate de que la ruta es correcta
+import chispa.chispa.services.UsersDetailsServiceImpl;  // Asegúrate de que la ruta es correcta
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +30,11 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-
-    private final UserDetailsRepository userDetailsRepository;
+    private final UsersDetailsRepository userDetailsRepository;
 
     // Configuración del filtro de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
-        RequestMatcher h2ConsoleMatcher = new AntPathRequestMatcher("/h2-console/**");
 
         http
                 .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF, ya que estamos usando JWT
@@ -44,9 +42,9 @@ public class SecurityConfiguration {
                 .headers().frameOptions().disable() // Deshabilitar frameOptions para permitir la consola H2
                 .and()
                 .authorizeRequests()
-                .requestMatchers(mvc.pattern("/api/recipe")).permitAll()
-                .requestMatchers(h2ConsoleMatcher).permitAll()
+                .requestMatchers(mvc.pattern("/api/blocks")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/login")).permitAll()
+                .requestMatchers(mvc.pattern("/api/auth/users")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/signup")).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -83,7 +81,7 @@ public class SecurityConfiguration {
     // Bean para el servicio de detalles de usuario
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl(userDetailsRepository, passwordEncoder());
+        return new UsersDetailsServiceImpl(userDetailsRepository, passwordEncoder());
     }
 
     // Bean para el codificador de contraseñas (BCrypt)

@@ -1,3 +1,4 @@
+/*
 package chispa.chispa.repositories;
 
 import chispa.chispa.models.Users;
@@ -13,3 +14,4 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     List<Users> findByState(UserState state);
 }
+*/

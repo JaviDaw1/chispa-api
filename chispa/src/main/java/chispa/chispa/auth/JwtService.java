@@ -1,7 +1,7 @@
 
 package chispa.chispa.auth;
 
-import chispa.chispa.models.enums.UserRole;
+import chispa.chispa.models.enums.Role;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -19,7 +19,7 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
 
-    public String createToken(String username, Collection<? extends GrantedAuthority> authorities, UserRole userRole) {
+    public String createToken(String username, Collection<? extends GrantedAuthority> authorities, Role userRole) {
         String token = "";
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtSecretKey);
