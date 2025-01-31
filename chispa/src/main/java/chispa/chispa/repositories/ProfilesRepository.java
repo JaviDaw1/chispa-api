@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ProfilesRepository extends JpaRepository<Profile, Long> {
-    Optional<Profile> findByUserId(Long userId);
+    Profile findByUserId(Long userId);
 
     List<Profile> findProfileByGender(Gender gender);
 
