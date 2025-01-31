@@ -4,40 +4,66 @@ import chispa.chispa.models.enums.Gender;
 import chispa.chispa.models.enums.PreferredRelationship;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
     private String name;
+
+    @NotBlank(message = "El apellido no puede estar vacío")
+    @Size(max = 100, message = "El apellido no puede tener más de 100 caracteres")
     private String lastName;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Gender gender;
-    @Nullable
+
+    @Size(max = 255, message = "La ubicación no puede tener más de 255 caracteres")
+    @Column(nullable = true)
     private String location;
-    @Nullable
-    @Column(length = 2000)
+
+    @Size(max = 2000, message = "La biografía no puede tener más de 2000 caracteres")
+    @Column(nullable = true)
     private String bio;
-    @Nullable
+
+    @Size(max = 1000, message = "Los intereses no pueden tener más de 1000 caracteres")
+    @Column(nullable = true)
     private String interests;
-    @Nullable
+
+    @Size(max = 255, message = "La foto de perfil no puede tener más de 255 caracteres")
+    @Column(nullable = true)
     private String profilePhoto;
+
+    @Column(nullable = false)
     private Boolean isOnline;
+
     @CreatedDate
-    private LocalDate lastActive;
+    @Column(nullable = false)
+    private LocalDateTime lastActive;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PreferredRelationship preferredRelationship;
 
 }

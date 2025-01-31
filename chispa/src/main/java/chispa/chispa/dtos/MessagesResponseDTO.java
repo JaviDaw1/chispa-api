@@ -5,6 +5,7 @@ import chispa.chispa.models.Users;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class MessagesResponseDTO {
@@ -13,6 +14,6 @@ public class MessagesResponseDTO {
     private final Users senderUser;
     private final Users receiverUser;
     private final String content;
-    private final LocalDate timestamp;
-    private final Integer isRead;
+    private final LocalDateTime timestamp;
+    private final Boolean isRead;
 }

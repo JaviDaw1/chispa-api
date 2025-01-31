@@ -6,6 +6,7 @@ import chispa.chispa.models.enums.PreferredRelationship;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class ProfileResponseDTO {
@@ -19,6 +20,6 @@ public class ProfileResponseDTO {
     private final String interests;
     private final String profilePhoto;
     private final Boolean isOnline;
-    private final LocalDate lastActive;
+    private final LocalDateTime lastActive;
     private final PreferredRelationship preferredRelationship;
 }

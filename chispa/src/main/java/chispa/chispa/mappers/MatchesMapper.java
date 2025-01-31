@@ -6,6 +6,7 @@ import chispa.chispa.models.Matches;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -29,7 +30,7 @@ public class MatchesMapper {
                 null,
                 matchRequestDto.getUser1(),
                 matchRequestDto.getUser2(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 matchRequestDto.getMatchState()
         );
     }

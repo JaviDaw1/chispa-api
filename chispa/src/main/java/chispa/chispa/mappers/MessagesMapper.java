@@ -6,6 +6,7 @@ import chispa.chispa.models.Messages;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -33,7 +34,7 @@ public class MessagesMapper {
                 messagesRequestDto.getSenderUser(),
                 messagesRequestDto.getReceiverUser(),
                 messagesRequestDto.getContent(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 messagesRequestDto.getIsRead()
         );
     }

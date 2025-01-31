@@ -6,6 +6,7 @@ import chispa.chispa.models.Blocks;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -29,7 +30,7 @@ public class BlocksMapper {
                 null,
                 blockRequestDto.getReporter(),
                 blockRequestDto.getReported(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 blockRequestDto.getBlockReason()
         );
     }

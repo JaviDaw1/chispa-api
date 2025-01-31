@@ -5,7 +5,7 @@ import chispa.chispa.dtos.ProfileResponseDTO;
 import chispa.chispa.models.Profile;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -43,7 +43,7 @@ public class ProfileMapper {
                 profileRequestDto.getInterests(),
                 profileRequestDto.getProfilePhoto(),
                 profileRequestDto.getIsOnline(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 profileRequestDto.getPreferredRelationship()
         );
     }

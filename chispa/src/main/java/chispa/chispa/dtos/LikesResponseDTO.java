@@ -5,12 +5,13 @@ import chispa.chispa.models.enums.LikeState;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class LikesResponseDTO {
     private final Long id;
     private final Users liker;
     private final Users liked;
-    private final LocalDate timestamp;
+    private final LocalDateTime timestamp;
     private final LikeState state;
 }

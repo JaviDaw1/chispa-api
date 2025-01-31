@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -44,7 +45,7 @@ public class LikesServiceImpl implements LikesService {
         Likes updated = this.findById(id);
         updated.setLiker(like.getLiker());
         updated.setLiked(like.getLiked());
-        updated.setTimestamp(LocalDate.now());
+        updated.setTimestamp(LocalDateTime.now());
         updated.setState(like.getState());
         return likesRepository.save(updated);
     }
@@ -59,7 +60,7 @@ public class LikesServiceImpl implements LikesService {
             likeToPatch.setLiked(like.getLiked());
         }
         if (like.getTimestamp() != null) {
-            likeToPatch.setTimestamp(LocalDate.now());
+            likeToPatch.setTimestamp(LocalDateTime.now());
         }
         if (like.getState() != null) {
             likeToPatch.setState(like.getState());

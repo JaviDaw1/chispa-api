@@ -2,31 +2,52 @@ package chispa.chispa.models;
 
 import chispa.chispa.models.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.Collection;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_")
+@Table(name = "users")
 public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
     private String firstname;
+
+    @NotBlank
+    @Size(max = 100, message = "El apellido no puede tener más de 100 caracteres")
     private String lastname;
+
+    @NotBlank
+    @Size(max = 100, message = "El nombre de usuario no puede tener más de 100 caracteres")
     @Column(unique = true)
     private String username;
+
+    @NotBlank(message = "El correo electrónico no puede estar vacío")
+    @Email(message = "Debe ser una dirección de correo electrónico válida")
     @Column(unique = true)
     private String email;
+
+    @NotBlank(message = "La contraseña no puede estar vacía")
     private String password;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     public Users(String firstname, String lastname, String username, String email, String password) {

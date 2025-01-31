@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/chispa-api.iml" filepath="$PROJECT_DIR$/.idea/chispa-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chispa.main.iml" filepath="$PROJECT_DIR$/.idea/modules/chispa.main.iml" />
     </modules>
   </component>
 </project>

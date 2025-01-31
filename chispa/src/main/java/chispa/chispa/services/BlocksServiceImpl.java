@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,7 +40,7 @@ public class BlocksServiceImpl implements BlocksService {
         Blocks updated = this.findById(id);
         updated.setReporter(block.getReporter());
         updated.setReported(block.getReported());
-        updated.setBlockDate(LocalDate.now());
+        updated.setBlockDate(LocalDateTime.now());
         updated.setBlockReason(block.getBlockReason());
         return blocksRepository.save(updated);
     }
@@ -69,7 +70,7 @@ public class BlocksServiceImpl implements BlocksService {
             blockToPatch.setReported(block.getReported());
         }
         if (block.getBlockDate() != null) {
-            blockToPatch.setBlockDate(LocalDate.now());
+            blockToPatch.setBlockDate(LocalDateTime.now());
         }
         if (block.getBlockReason() != null) {
             blockToPatch.setBlockReason(block.getBlockReason());

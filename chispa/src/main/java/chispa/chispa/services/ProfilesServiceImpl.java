@@ -9,7 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         profileUpdated.setInterests(profile.getInterests());
         profileUpdated.setGender(profile.getGender());
         profileUpdated.setIsOnline(profile.getIsOnline());
-        profileUpdated.setLastActive(LocalDate.now());
+        profileUpdated.setLastActive(LocalDateTime.now());
         profileUpdated.setLastName(profile.getLastName());
         profileUpdated.setPreferredRelationship(profile.getPreferredRelationship());
         profileUpdated.setLocation(profile.getLocation());

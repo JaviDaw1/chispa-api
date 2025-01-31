@@ -4,9 +4,10 @@ import chispa.chispa.models.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LikesRepository extends JpaRepository<Likes, Long> {
-    List<Likes> findByLikerIdAndLikedId(Long likerId, Long likedId);
+    Optional<Likes> findByLikerIdAndLikedId(Long likerId, Long likedId);
 
     Long countLikesByLikerId(Long reporterId);
 

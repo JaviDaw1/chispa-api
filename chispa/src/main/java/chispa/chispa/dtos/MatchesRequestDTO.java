@@ -2,11 +2,17 @@ package chispa.chispa.dtos;
 
 import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.MatchState;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class MatchesRequestDTO {
-    private final Users user1;
-    private final Users user2;
-    private final MatchState matchState; //ENUM: 'pending', 'accepted', 'rejected', 'cancelled'
+    @NotNull(message = "El primer usuario no puede estar vacío")
+    private Users user1;
+
+    @NotNull(message = "El segundo usuario no puede estar vacío")
+    private Users user2;
+
+    @NotNull(message = "El estado del match no puede estar vacío")
+    private MatchState matchState; //ENUM: 'pending', 'accepted', 'rejected', 'cancelled'
 }

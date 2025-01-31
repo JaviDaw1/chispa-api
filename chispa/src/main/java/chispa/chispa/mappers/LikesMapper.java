@@ -6,6 +6,7 @@ import chispa.chispa.models.Likes;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -29,7 +30,7 @@ public class LikesMapper {
                 null,
                 likeRequestDto.getLiker(),
                 likeRequestDto.getLiked(),
-                LocalDate.now(),
+                LocalDateTime.now(),
                 likeRequestDto.getState()
         );
     }
