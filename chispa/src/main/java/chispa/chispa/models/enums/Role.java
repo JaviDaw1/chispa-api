@@ -14,7 +14,7 @@ import static chispa.chispa.models.enums.Permission.*;
 @Getter
 @RequiredArgsConstructor
 public enum Role {
-    USER(Collections.emptySet()),
+    CLIENT(Collections.emptySet()),
     ADMIN(
             Set.of(
                     ADMIN_READ,
@@ -27,7 +27,7 @@ public enum Role {
                     CLIENT_CREATE
             )
     ),
-    CLIENT(
+    USER(
             Set.of(
                     CLIENT_READ,
                     CLIENT_UPDATE,
@@ -43,7 +43,7 @@ public enum Role {
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toList());
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        authorities.add(new SimpleGrantedAuthority(this.name()));
         return authorities;
     }
 }

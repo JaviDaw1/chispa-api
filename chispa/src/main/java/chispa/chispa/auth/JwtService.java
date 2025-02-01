@@ -26,6 +26,7 @@ public class JwtService {
             token = JWT.create()
                     .withIssuer("chispa")
                     .withSubject(username)
+                    .withClaim("role", userRole.name())
                     .withExpiresAt(new Date(System.currentTimeMillis() + jwtExpiration))
                     .sign(algorithm);
         } catch (JWTCreationException exception) {

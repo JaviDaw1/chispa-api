@@ -50,7 +50,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword())
         );
-        Role role = signupRequest.getUserRole() != null ? signupRequest.getUserRole() : Role.valueOf("CLIENT");
+        Role role = signupRequest.getUserRole() != null ? signupRequest.getUserRole() : Role.valueOf("USER");
         user.setRole(role);
         return userDetailsRepository.save(user);
     }

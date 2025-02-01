@@ -55,9 +55,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     private Collection<? extends GrantedAuthority> getAuthoritiesFromRole(String role) {
         if ("ADMIN".equals(role)) {
-            return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+            return AuthorityUtils.createAuthorityList("ADMIN");
         } else {
-            return AuthorityUtils.createAuthorityList("ROLE_CLIENT");
+            return AuthorityUtils.createAuthorityList("USER");
         }
     }
 }

@@ -55,10 +55,10 @@ public class AuthController {
                 String roleName = userDetails.getAuthorities().iterator().next().getAuthority();
                 return Role.valueOf(roleName);
             } else {
-                return Role.CLIENT;
+                return Role.USER;
             }
         } else {
-            return Role.CLIENT;
+            return Role.USER;
         }
     }
     @PostMapping("/signup")
