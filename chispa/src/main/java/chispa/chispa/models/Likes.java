@@ -32,4 +32,11 @@ public class Likes {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LikeState state;
+
+    @PrePersist
+    public void prePersist() {
+        if (state == null) {
+            state = LikeState.PENDING;
+        }
+    }
 }

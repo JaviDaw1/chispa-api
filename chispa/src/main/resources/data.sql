@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS profile (
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
-    gender ENUM('male', 'female', 'other') NOT NULL,
+    gender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
     location VARCHAR(255),
     bio TEXT,
     interests TEXT,
     profilePhoto VARCHAR(255),
     isOnline TINYINT(1) DEFAULT 0,
     lastActive DATETIME,
-    preferredRelationship ENUM('friendship', 'casual', 'serious') DEFAULT 'friendship',
+    preferredRelationship ENUM('FRIENDSHIP', 'CASUAL', 'SERIOUS') DEFAULT 'FRIENDSHIP',
     FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS preferences (
     minAgeRange INT NOT NULL,
     maxAgeRange INT NOT NULL,
     maxDistance INT NOT NULL,
-    favoriteGender ENUM('male', 'female', 'other') NOT NULL,
+    favoriteGender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS matches (
     user1_id INT NOT NULL,
     user2_id INT NOT NULL,
     matchDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    matchState ENUM('pending', 'accepted', 'rejected', 'cancelled') DEFAULT 'pending',
+    matchState ENUM('PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED') DEFAULT 'PENDING',
     FOREIGN KEY (user1_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (user2_id) REFERENCES user_(id) ON DELETE CASCADE
     );
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS likes (
     liker_id INT NOT NULL,
     liked_id INT NOT NULL,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    state ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    state ENUM('PENDING', 'ACCEPTED', 'REJECTED') DEFAULT 'PENDING',
     FOREIGN KEY (liker_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (liked_id) REFERENCES user_(id) ON DELETE CASCADE
 
@@ -91,25 +91,25 @@ VALUES
 -- Insertar Datos en la Tabla Profile
 INSERT INTO profile (user_id, name, lastName, gender, location, bio, interests, profilePhoto, isOnline, lastActive, preferredRelationship)
 VALUES
-    (1, 'Juan', 'Pérez', 'male', 'Madrid, España', 'Amante de los libros y el café.', 'Leer, Senderismo', 'https://ejemplo.com/imagenes/juan.jpg', 1, NOW(), 'friendship'),
-    (2, 'María', 'García', 'female', 'Barcelona, España', 'Entusiasta de la tecnología y jugadora.', 'Videojuegos, Viajar', 'https://ejemplo.com/imagenes/maria.jpg', 0, NOW(), 'serious'),
-    (3, 'Admin', 'Usuario', 'male', 'Global', 'Cuenta de administrador del sistema.', '', 'https://ejemplo.com/imagenes/admin.jpg', 0, NOW(), 'casual')
+    (1, 'Juan', 'Pérez', 'MALE', 'Madrid, España', 'Amante de los libros y el café.', 'Leer, Senderismo', 'https://ejemplo.com/imagenes/juan.jpg', 1, NOW(), 'FRIENDSHIP'),
+    (2, 'María', 'García', 'FEMALE', 'Barcelona, España', 'Entusiasta de la tecnología y jugadora.', 'Videojuegos, Viajar', 'https://ejemplo.com/imagenes/maria.jpg', 0, NOW(), 'SERIOUS'),
+    (3, 'Admin', 'Usuario', 'MALE', 'Global', 'Cuenta de administrador del sistema.', '', 'https://ejemplo.com/imagenes/admin.jpg', 0, NOW(), 'CASUAL')
     ON DUPLICATE KEY UPDATE user_id=user_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Preferences
 INSERT INTO preferences (user_id, minAgeRange, maxAgeRange, maxDistance, favoriteGender)
 VALUES
-    (1, 25, 35, 50, 'female'),
-    (2, 30, 40, 100, 'male'),
-    (3, 18, 99, 1000, 'other')
+    (1, 25, 35, 50, 'FEMALE'),
+    (2, 30, 40, 100, 'MALE'),
+    (3, 18, 99, 1000, 'OTHER')
     ON DUPLICATE KEY UPDATE user_id=user_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Matches
 INSERT INTO matches (user1_id, user2_id, matchState)
 VALUES
-    (1, 2, 'pending'),
-    (2, 3, 'accepted'),
-    (1, 3, 'rejected')
+    (1, 2, 'PENDING'),
+    (2, 3, 'ACCEPTED'),
+    (1, 3, 'REJECTED')
     ON DUPLICATE KEY UPDATE user1_id=user1_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla Messages
@@ -123,9 +123,9 @@ VALUES
 -- Insertar Datos en la Tabla Likes
 INSERT INTO likes (liker_id, liked_id, state)
 VALUES
-    (1, 2, 'pending'),
-    (2, 1, 'accepted'),
-    (3, 1, 'rejected')
+    (1, 2, 'PENDING'),
+    (2, 1, 'ACCEPTED'),
+    (3, 1, 'REJECTED')
     ON DUPLICATE KEY UPDATE liker_id=liker_id; -- Evita duplicados si ya existen.
 
 -- Insertar Datos en la Tabla blocks

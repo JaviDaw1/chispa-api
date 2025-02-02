@@ -12,7 +12,6 @@ import lombok.Data;
 public class ProfileRequestDTO {
     private final Users user;
 
-
     @NotBlank(message = "El nombre no puede estar vacío")
     @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
     private final String name;

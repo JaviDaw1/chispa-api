@@ -35,14 +35,12 @@ public class SecurityConfiguration {
     // Configuración del filtro de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
-
         http
                 .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF, ya que estamos usando JWT
                 .cors().and()  // Habilitar CORS para permitir solicitudes entre dominios
                 .headers().frameOptions().disable() // Deshabilitar frameOptions para permitir la consola H2
                 .and()
                 .authorizeRequests()
-                .requestMatchers(mvc.pattern("/api/blocks")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/login")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/users")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/signup")).permitAll()
