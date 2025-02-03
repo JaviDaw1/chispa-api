@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UsersDetailsRepository extends JpaRepository<Users, Long> {
     UserDetails findByEmail(String email);
+    void deleteById(Long id);
 }

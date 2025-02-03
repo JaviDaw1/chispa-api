@@ -25,6 +25,10 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
         return userDetailsRepository.save(user);
     }
 
+    public void deleteById(Long id) {
+        userDetailsRepository.deleteById(id);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userDetailsRepository.findByEmail(email);

@@ -1,5 +1,6 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.LikeState;
 import chispa.chispa.models.enums.MatchState;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -35,4 +36,12 @@ public class Matches {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MatchState matchState;
+
+    @PrePersist
+    public void prePersist() {
+        if (matchState == null) {
+            matchState = MatchState.PENDING;
+        }
+    }
 }
+

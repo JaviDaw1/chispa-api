@@ -25,7 +25,9 @@ public class AuthController {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UsersDetailsServiceImpl userDetailsService;
-//    @PostMapping("/login")
+    private final UsersDetailsServiceImpl usersDetailsServiceImpl;
+
+    //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 //        Authentication authentication = authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
@@ -86,5 +88,11 @@ public class AuthController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        usersDetailsServiceImpl.deleteById(userId);
+        return ResponseEntity.noContent().build();
     }
 }
