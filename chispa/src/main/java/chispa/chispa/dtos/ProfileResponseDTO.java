@@ -16,7 +16,7 @@ public class ProfileResponseDTO {
     private final String lastName;
     private final Gender gender;
     private final LocalDate birthDate;
-    private final Integer age;
+    private final Integer age; // Ahora calculado dinámicamente
     private final String location;
     private final String bio;
     private final String interests;

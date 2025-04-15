@@ -1,4 +1,12 @@
--- Create tables if they don't exist
+-- Crear la base de datos "chispa" si no existe
+CREATE
+DATABASE IF NOT EXISTS chispa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Usar la base de datos "chispa"
+USE
+chispa;
+
+-- Crear las tablas si no existen
 CREATE TABLE IF NOT EXISTS user_ (
                                      id
                                      INT
@@ -208,7 +216,7 @@ CREATE TABLE IF NOT EXISTS blocks (
     FOREIGN KEY (reported_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
--- Insert Data into user_ table
+-- Insertar datos en la tabla user_
 INSERT INTO user_ (firstname, lastname, username, email, password, role)
 VALUES
     ('Juan', 'Perez', 'juan.perez', 'juan.perez@ejemplo.com', 'contraseña_cifrada_1', 'USER'),
@@ -216,9 +224,9 @@ VALUES
     ('Admin', 'Admin', 'admin', 'admin@ejemplo.com', 'contraseña_cifrada_3', 'ADMIN') ON DUPLICATE KEY
 UPDATE email=email;
 
--- Insert Data into Profile table (updated with birthDate)
-INSERT INTO profile (user_id, name, lastName, gender, birthDate, location, bio, interests, profilePhoto, isOnline,
-                     lastActive, preferredRelationship)
+-- Insertar datos en la tabla profile (sin el campo "age" ya que se calcula dinámicamente)
+INSERT INTO profile (user_id, name, lastName, gender, birthDate, location,
+                     bio, interests, profilePhoto, isOnline, lastActive, preferredRelationship)
 VALUES (1, 'Juan', 'Pérez', 'MALE', '1990-01-15', 'Madrid, España', 'Amante de los libros y el café.',
         'Leer, Senderismo', 'https://ejemplo.com/imagenes/juan.jpg', 1, NOW(), 'FRIENDSHIP'),
        (2, 'María', 'García', 'FEMALE', '1985-05-22', 'Barcelona, España', 'Entusiasta de la tecnología y jugadora.',
@@ -227,7 +235,7 @@ VALUES (1, 'Juan', 'Pérez', 'MALE', '1990-01-15', 'Madrid, España', 'Amante de
         'https://ejemplo.com/imagenes/admin.jpg', 0, NOW(), 'CASUAL') ON DUPLICATE KEY
 UPDATE user_id=user_id;
 
--- Insert Data into Preferences table
+-- Insertar datos en la tabla preferences
 INSERT INTO preferences (user_id, minAgeRange, maxAgeRange, maxDistance, favoriteGender)
 VALUES
     (1, 25, 35, 50, 'FEMALE'),
@@ -235,7 +243,7 @@ VALUES
     (3, 18, 99, 1000, 'OTHER') ON DUPLICATE KEY
 UPDATE user_id=user_id;
 
--- Insert Data into Matches table
+-- Insertar datos en la tabla matches
 INSERT INTO matches (user1_id, user2_id, matchState)
 VALUES
     (1, 2, 'PENDING'),
@@ -243,7 +251,7 @@ VALUES
     (1, 3, 'REJECTED') ON DUPLICATE KEY
 UPDATE user1_id=user1_id;
 
--- Insert Data into Messages table
+-- Insertar datos en la tabla messages
 INSERT INTO messages (match_id, senderUser_id, receiverUser_id, content, isRead)
 VALUES
     (1, 1, 2, '¡Hola! ¿Cómo estás?', 0),
@@ -251,7 +259,7 @@ VALUES
     (2, 2, 2, '¡Hola! ¿Nos vemos pronto?', 1) ON DUPLICATE KEY
 UPDATE match_id=match_id;
 
--- Insert Data into Likes table
+-- Insertar datos en la tabla likes
 INSERT INTO likes (liker_id, liked_id, state)
 VALUES
     (1, 2, 'PENDING'),
@@ -259,7 +267,7 @@ VALUES
     (3, 1, 'REJECTED') ON DUPLICATE KEY
 UPDATE liker_id=liker_id;
 
--- Insert Data into blocks table
+-- Insertar datos en la tabla blocks
 INSERT INTO blocks (reporter_id, reported_id, blockDate, blockReason)
 VALUES
     (1, 3, NOW(), 'Envío de mensajes no deseados'),

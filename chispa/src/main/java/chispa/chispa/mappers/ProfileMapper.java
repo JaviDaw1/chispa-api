@@ -43,7 +43,6 @@ public class ProfileMapper {
                 profileRequestDto.getLastName(),
                 profileRequestDto.getGender(),
                 profileRequestDto.getBirthDate(),
-                null, // age will be calculated automatically
                 profileRequestDto.getLocation(),
                 profileRequestDto.getBio(),
                 profileRequestDto.getInterests(),
