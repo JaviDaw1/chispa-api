@@ -17,6 +17,8 @@ public class ProfileMapper {
                 profile.getName(),
                 profile.getLastName(),
                 profile.getGender(),
+                profile.getBirthDate(),
+                profile.getAge(),
                 profile.getLocation(),
                 profile.getBio(),
                 profile.getInterests(),
@@ -26,11 +28,13 @@ public class ProfileMapper {
                 profile.getPreferredRelationship()
         );
     }
+
     public List<ProfileResponseDTO> toResponse(List<Profile> profiles) {
         return profiles.stream()
                 .map(this::toResponse)
                 .toList();
     }
+
     public Profile toModel(ProfileRequestDTO profileRequestDto) {
         return new Profile(
                 null,
@@ -38,6 +42,8 @@ public class ProfileMapper {
                 profileRequestDto.getName(),
                 profileRequestDto.getLastName(),
                 profileRequestDto.getGender(),
+                profileRequestDto.getBirthDate(),
+                null, // age will be calculated automatically
                 profileRequestDto.getLocation(),
                 profileRequestDto.getBio(),
                 profileRequestDto.getInterests(),

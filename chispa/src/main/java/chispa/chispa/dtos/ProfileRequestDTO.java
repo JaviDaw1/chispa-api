@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class ProfileRequestDTO {
     private final Users user;
@@ -22,6 +24,9 @@ public class ProfileRequestDTO {
 
     @NotNull(message = "El género no puede estar vacío")
     private final Gender gender; // Enum: 'male', 'female', 'other'
+
+    @NotNull(message = "La fecha de nacimiento no puede estar vacía")
+    private final LocalDate birthDate;
 
     @Size(max = 255, message = "La ubicación no puede tener más de 255 caracteres")
     private final String location;

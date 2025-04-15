@@ -8,11 +8,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @ToString(exclude = "user")
@@ -38,6 +41,12 @@ public class Profile {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
+
+    @Column(nullable = false)
+    private LocalDate birthDate;
+
+    @Column(nullable = false)
+    private Integer age; // Ahora se guarda en la BD
 
     @Size(max = 255, message = "La ubicación no puede tener más de 255 caracteres")
     @Column(nullable = true)
@@ -66,4 +75,20 @@ public class Profile {
     @Column(nullable = false)
     private PreferredRelationship preferredRelationship;
 
+    // Se recalcula justo antes de guardar o actualizar
+    @PrePersist
+    @PreUpdate
+    public void updateAge() {
+        if (birthDate != null) {
+            this.age = Period.between(birthDate, LocalDate.now()).getYears();
+        }
+    }
+
+    // También recalcula tras cargar de la BD por si acaso
+    @PostLoad
+    private void calculateAge() {
+        if (birthDate != null) {
+            this.age = Period.between(birthDate, LocalDate.now()).getYears();
+        }
+    }
 }
