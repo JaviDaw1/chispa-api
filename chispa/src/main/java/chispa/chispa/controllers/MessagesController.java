@@ -47,12 +47,12 @@ public class MessagesController {
         return ResponseEntity.ok(messagesMapper.toResponse(messageUpdated));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<MessagesResponseDTO> patchMessage(@PathVariable Long id, @RequestBody MessagesRequestDTO messagesRequestDto) {
-        log.info("patchMessage");
-        Messages messagePatched = messagesService.patch(id, messagesMapper.toModel(messagesRequestDto));
-        return ResponseEntity.ok(messagesMapper.toResponse(messagePatched));
-    }
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<MessagesResponseDTO> patchMessage(@PathVariable Long id, @RequestBody MessagesRequestDTO messagesRequestDto) {
+//        log.info("patchMessage");
+//        Messages messagePatched = messagesService.patch(id, messagesMapper.toModel(messagesRequestDto));
+//        return ResponseEntity.ok(messagesMapper.toResponse(messagePatched));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {

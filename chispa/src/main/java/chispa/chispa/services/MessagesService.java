@@ -17,6 +17,12 @@ public interface MessagesService {
 
     List<Messages> findByMatchId(Long matchId);
 
-    public Messages patch(Long id, Messages message);
+//    public Messages patch(Long id, Messages message);
+
+    Messages markAsRead(Long messageId);
+
+    Long countUnreadMessages(Long userId, Long matchId);
+
+    List<Messages> getConversation(Long matchId, Long userId1, Long userId2);
 }
 
