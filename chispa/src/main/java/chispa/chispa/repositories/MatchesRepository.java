@@ -22,4 +22,7 @@ public interface MatchesRepository extends JpaRepository<Matches, Long> {
             "(m.user1.id = :user1Id AND m.user2.id = :user2Id) OR " +
             "(m.user1.id = :user2Id AND m.user2.id = :user1Id)")
     boolean existsMatchBetweenUsers(@Param("user1Id") Long user1Id, @Param("user2Id") Long user2Id);
+
+    @Query("SELECT m FROM Matches m WHERE m.user1.id = :userId OR m.user2.id = :userId")
+    List<Matches> findByEitherUserId(@Param("userId") Long userId);
 }

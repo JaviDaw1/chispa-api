@@ -54,7 +54,7 @@ public class MatchesServiceImpl implements MatchesService {
 
     @Override
     public List<Matches> findByUserId(Long userId) {
-        return matchesRepository.findByUser1Id(userId);
+        return matchesRepository.findByEitherUserId(userId);
     }
 
     @Override
