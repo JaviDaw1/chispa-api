@@ -25,11 +25,11 @@ public class Messages {
     private Matches match;
 
     @ManyToOne
-    @JoinColumn(name = "sender_user_id", nullable = false)
+    @JoinColumn(name = "senderUser_id", nullable = false)
     private Users senderUser;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_user_id", nullable = false)
+    @JoinColumn(name = "receiverUser_id", nullable = false)
     private Users receiverUser;
 
     @NotBlank(message = "El contenido del mensaje no puede estar vacío")

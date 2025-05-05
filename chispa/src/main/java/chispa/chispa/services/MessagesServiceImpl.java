@@ -29,30 +29,26 @@ public class MessagesServiceImpl implements MessagesService {
 
     @Override
     public Messages save(Messages message) {
-        // Validar que los usuarios existen
-        // Validar usuarios existen
         Users sender = usersRepository.findById(message.getSenderUser().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Remitente no encontrado"));
-        Users receiver = usersRepository.findById(message.getReceiverUser().getId()) // Corregido aquí
+        Users receiver = usersRepository.findById(message.getReceiverUser().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Destinatario no encontrado"));
 
-        // Validar que el match existe
         Matches match = matchesRepository.findById(message.getMatch().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Match no encontrado"));
 
-        // Validar que ambos usuarios pertenecen al match
         if (!isUsersInMatch(match, sender.getId(), receiver.getId())) {
             throw new IllegalArgumentException("Los usuarios no pertenecen a este match");
         }
 
-        // Establecer timestamp actual
         message.setTimestamp(LocalDateTime.now());
 
-        // Por defecto, mensaje no leído
         if (message.getIsRead() == null) {
             message.setIsRead(false);
         }
-
+        message.setSenderUser(sender);
+        message.setReceiverUser(receiver);
+        message.setMatch(match);
         return messagesRepository.save(message);
     }
 
@@ -89,11 +85,9 @@ public class MessagesServiceImpl implements MessagesService {
 
     @Override
     public List<Messages> getConversation(Long matchId, Long userId1, Long userId2) {
-        // Validar que el match existe
         Matches match = matchesRepository.findById(matchId)
                 .orElseThrow(() -> new IllegalArgumentException("Match no encontrado"));
 
-        // Validar que los usuarios pertenecen al match
         if (!isUsersInMatch(match, userId1, userId2)) {
             throw new IllegalArgumentException("Los usuarios no pertenecen a este match");
         }
