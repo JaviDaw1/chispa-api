@@ -20,9 +20,5 @@ public interface MessagesService {
 //    public Messages patch(Long id, Messages message);
 
     Messages markAsRead(Long messageId);
-
-    Long countUnreadMessages(Long userId, Long matchId);
-
-    List<Messages> getConversation(Long matchId, Long userId1, Long userId2);
 }
 

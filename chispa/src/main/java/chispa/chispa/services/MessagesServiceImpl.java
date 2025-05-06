@@ -82,29 +82,11 @@ public class MessagesServiceImpl implements MessagesService {
         return messagesRepository.findByMatchIdOrderByTimestampAsc(matchId);
     }
 
-
-    @Override
-    public List<Messages> getConversation(Long matchId, Long userId1, Long userId2) {
-        Matches match = matchesRepository.findById(matchId)
-                .orElseThrow(() -> new IllegalArgumentException("Match no encontrado"));
-
-        if (!isUsersInMatch(match, userId1, userId2)) {
-            throw new IllegalArgumentException("Los usuarios no pertenecen a este match");
-        }
-
-        return messagesRepository.findByMatchIdOrderByTimestampAsc(matchId);
-    }
-
     @Override
     public Messages markAsRead(Long messageId) {
         Messages message = findById(messageId);
         message.setIsRead(true);
         return messagesRepository.save(message);
-    }
-
-    @Override
-    public Long countUnreadMessages(Long userId, Long matchId) {
-        return messagesRepository.countByReceiverUserIdAndMatchIdAndIsReadFalse(userId, matchId);
     }
 
     // Método auxiliar para validar usuarios en un match

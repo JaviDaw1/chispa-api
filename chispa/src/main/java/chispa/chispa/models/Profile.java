@@ -57,7 +57,7 @@ public class Profile {
     @Column(nullable = true)
     private String interests;
 
-    @Size(max = 3000, message = "La foto de perfil no puede tener más de 255 caracteres")
+    @Size(max = 5000, message = "La foto de perfil no puede tener más de 255 caracteres")
     @Column(nullable = true)
     private String profilePhoto;
 

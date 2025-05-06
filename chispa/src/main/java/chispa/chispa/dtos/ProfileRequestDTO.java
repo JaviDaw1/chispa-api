@@ -37,7 +37,7 @@ public class ProfileRequestDTO {
     @Size(max = 1000, message = "Los intereses no pueden tener más de 1000 caracteres")
     private final String interests;
 
-    @Size(max = 3000)
+    @Size(max = 5000)
     private final String profilePhoto;
 
     @NotNull(message = "El estado en línea no puede estar vacío")
