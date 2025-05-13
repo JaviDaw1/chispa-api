@@ -23,4 +23,8 @@ public interface ProfilesService {
     Map<PreferredRelationship, Long> countProfilesByPreferredRelationship(PreferredRelationship preferredRelationship);
 
     List<Profile> findProfilesByGender(Gender gender);
+
+    Profile setOnline(Profile profile);
+
+    Profile setOffline(Profile profile);
 }

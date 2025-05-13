@@ -51,6 +51,18 @@ public class ProfilesController {
         return ResponseEntity.ok(profileMapper.toResponse(profilesService.update(id, profileMapper.toModel(profileRequestDto))));
     }
 
+    @PutMapping("/online/{id}")
+    public ResponseEntity<ProfileResponseDTO> setOnline(@PathVariable Long id, @RequestBody ProfileRequestDTO profileRequestDto) {
+        log.info("setOnline");
+        return ResponseEntity.ok(profileMapper.toResponse(profilesService.setOnline(profileMapper.toModel(profileRequestDto))));
+    }
+
+    @PutMapping("/offline/{id}")
+    public ResponseEntity<ProfileResponseDTO> setOffline(@PathVariable Long id, @RequestBody ProfileRequestDTO profileRequestDto) {
+        log.info("setOffline");
+        return ResponseEntity.ok(profileMapper.toResponse(profilesService.setOffline(profileMapper.toModel(profileRequestDto))));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
         log.info("deleteProfile");

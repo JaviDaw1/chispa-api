@@ -71,4 +71,16 @@ public class ProfilesServiceImpl implements ProfilesService {
     public List<Profile> findProfilesByGender(Gender gender) {
         return profileRepository.findProfileByGender(gender);
     }
+
+    @Override
+    public Profile setOnline(Profile profile) {
+        profile.setIsOnline(true);
+        return profileRepository.save(profile);
+    }
+
+    @Override
+    public Profile setOffline(Profile profile) {
+        profile.setIsOnline(false);
+        return profileRepository.save(profile);
+    }
 }
