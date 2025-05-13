@@ -1,3 +1,5 @@
+DROP DATABASE chispa;
+
 -- Crear la base de datos "chispa" si no existe
 CREATE DATABASE IF NOT EXISTS chispa
   CHARACTER SET utf8mb4
@@ -95,26 +97,26 @@ CREATE TABLE IF NOT EXISTS blocks (
 -- Usuarios
 INSERT INTO user_ (firstname, lastname, username, email, password, role)
 VALUES
-    ('Ana', 'García', 'ana.g', 'ana@gmail.com', 'hola', 'USER'),
-    ('Luis', 'Pérez', 'luis.p', 'luis@gmail.com', 'hola', 'ADMIN'),
-    ('Carla', 'López', 'carla.l', 'carla@gmail.com', 'hola', 'USER'),
-    ('Mario', 'Ruiz', 'mario.r', 'mario@gmail.com', 'hola', 'USER'),
-    ('Laura', 'Martínez', 'laura.m', 'laura@gmail.com', 'hola', 'USER'),
-    ('Javier', 'Torres', 'javi.t', 'javit@gmail.com', 'hola', 'USER'),
-    ('Paula', 'Navarro', 'paula.n', 'paula@gmail.com', 'hola', 'USER'),
-    ('Diego', 'Sánchez', 'diego.s', 'diego@gmail.com', 'hola', 'USER'),
-    ('Marta', 'Romero', 'marta.r', 'marta@gmail.com', 'hola', 'USER'),
-    ('Hugo', 'Castro', 'hugo.c', 'hugo@gmail.com', 'hola', 'USER'),
-    ('Nuria', 'Alonso', 'nuria.a', 'nuria@gmail.com', 'hola', 'USER'),
-    ('Carlos', 'Iglesias', 'carlos.i', 'carlos@gmail.com', 'hola', 'USER'),
-    ('Sara', 'Domínguez', 'sara.d', 'sara@gmail.com', 'hola', 'USER'),
-    ('Pablo', 'Rey', 'pablo.r', 'pablo@gmail.com', 'hola', 'USER'),
-    ('Elena', 'Flores', 'elena.f', 'elena@gmail.com', 'hola', 'USER'),
-    ('Andrés', 'Luna', 'andres.l', 'andres@gmail.com', 'hola', 'USER'),
-    ('Lucía', 'Campos', 'lucia.c', 'lucia@gmail.com', 'hola', 'USER'),
-    ('Fernando', 'Morales', 'fernando.m', 'fernando@gmail.com', 'hola', 'USER'),
-    ('Silvia', 'Vega', 'silvia.v', 'silvia@gmail.com', 'hola', 'USER'),
-    ('Óscar', 'Nieto', 'oscar.n', 'oscar@gmail.com', 'hola', 'USER') ON DUPLICATE KEY
+    ('Ana', 'García', 'ana.g', 'ana@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Luis', 'Pérez', 'luis.p', 'luis@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'ADMIN'),
+    ('Carla', 'López', 'carla.l', 'carla@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Mario', 'Ruiz', 'mario.r', 'mario@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Laura', 'Martínez', 'laura.m', 'laura@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Javier', 'Torres', 'javi.t', 'javit@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Paula', 'Navarro', 'paula.n', 'paula@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Diego', 'Sánchez', 'diego.s', 'diego@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Marta', 'Romero', 'marta.r', 'marta@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Hugo', 'Castro', 'hugo.c', 'hugo@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Nuria', 'Alonso', 'nuria.a', 'nuria@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Carlos', 'Iglesias', 'carlos.i', 'carlos@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Sara', 'Domínguez', 'sara.d', 'sara@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Pablo', 'Rey', 'pablo.r', 'pablo@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Elena', 'Flores', 'elena.f', 'elena@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Andrés', 'Luna', 'andres.l', 'andres@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Lucía', 'Campos', 'lucia.c', 'lucia@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Fernando', 'Morales', 'fernando.m', 'fernando@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Silvia', 'Vega', 'silvia.v', 'silvia@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Óscar', 'Nieto', 'oscar.n', 'oscar@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER') ON DUPLICATE KEY
 UPDATE email=email;
 
 
