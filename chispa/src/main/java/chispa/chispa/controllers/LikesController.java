@@ -61,6 +61,13 @@ public class LikesController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/liker/{likerId}/liked/{likedId}")
+    public ResponseEntity<Void> deleteLikeLikerIdAndLikedId(@PathVariable Long likerId, @PathVariable Long likedId) {
+        log.info("deleteLikeLikerIdAndLikedId");
+        likesService.deleteLikeByLikerIdAndLikedId(likerId, likedId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/liker/{likerId}")
     public ResponseEntity<List<LikesResponseDTO>> getLikesByLikerId(@PathVariable Long likerId) {
         log.info("getLikesByLikerId");

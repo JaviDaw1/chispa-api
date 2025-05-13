@@ -73,6 +73,12 @@ public class MessagesServiceImpl implements MessagesService {
     }
 
     @Override
+    public void deleteMessagesByMatchId(Long matchId) {
+        messagesRepository.deleteMessagesByMatchId(matchId);
+    }
+
+
+    @Override
     public List<Messages> findAll() {
         return messagesRepository.findAll();
     }

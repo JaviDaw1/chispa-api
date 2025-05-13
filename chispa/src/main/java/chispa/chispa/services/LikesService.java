@@ -13,6 +13,8 @@ public interface LikesService {
 
     void deleteById(Long id);
 
+    void deleteLikeByLikerIdAndLikedId(Long likerId, Long likedId);
+
     List<Likes> findAll();
 
     Long countLikes();

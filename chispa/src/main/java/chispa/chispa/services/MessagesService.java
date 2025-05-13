@@ -20,5 +20,7 @@ public interface MessagesService {
 //    public Messages patch(Long id, Messages message);
 
     Messages markAsRead(Long messageId);
+
+    void deleteMessagesByMatchId(Long matchId);
 }
 

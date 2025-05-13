@@ -38,6 +38,10 @@ public class LikesServiceImpl implements LikesService {
         likesRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteLikeByLikerIdAndLikedId(Long likerId, Long likedId) {
+        likesRepository.deleteLikesByLikerIdAndLikedId(likerId, likedId);
+    }
 
     @Override
     public Likes update(Long id, Likes like) {

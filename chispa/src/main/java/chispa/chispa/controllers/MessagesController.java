@@ -61,6 +61,13 @@ public class MessagesController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/match/{matchId}")
+    public ResponseEntity<Void> deleteMessagesByMatchId(@PathVariable Long matchId) {
+        log.info("deleteMessagesByMatchId");
+        messagesService.deleteMessagesByMatchId(matchId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/match/{matchId}")
     public ResponseEntity<List<MessagesResponseDTO>> getMessagesByMatchId(@PathVariable Long matchId) {
         log.info("getMessagesByMatchId");
