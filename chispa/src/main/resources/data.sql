@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS user_ (
     role ENUM('USER', 'ADMIN') DEFAULT 'USER'
     );
 
--- Tabla de perfiles de usuario
 CREATE TABLE IF NOT EXISTS profile (
                                        id INT AUTO_INCREMENT PRIMARY KEY,
                                        user_id INT NOT NULL,
@@ -33,9 +32,19 @@ CREATE TABLE IF NOT EXISTS profile (
     profilePhoto VARCHAR(5000),
     isOnline TINYINT(1) DEFAULT 0,
     lastActive DATETIME,
-    preferredRelationship ENUM('FRIENDSHIP', 'CASUAL', 'SERIOUS') DEFAULT 'FRIENDSHIP',
+    preferredRelationship ENUM(
+                                  'FRIENDSHIP',
+                                  'CASUAL',
+                                  'SERIOUS',
+                                  'LONG_TERM',
+                                  'OPEN',
+                                  'HOOKUP',
+                                  'MARRIAGE',
+                                  'NOT_SURE'
+                              ) DEFAULT 'FRIENDSHIP',
     FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
+
 
 -- Tabla de preferencias de usuario
 CREATE TABLE IF NOT EXISTS preferences (
@@ -98,7 +107,7 @@ CREATE TABLE IF NOT EXISTS blocks (
 INSERT INTO user_ (firstname, lastname, username, email, password, role)
 VALUES
     ('Ana', 'García', 'ana.g', 'ana@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
-    ('Luis', 'Pérez', 'luis.p', 'luis@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'ADMIN'),
+    ('Admin', 'admin', 'admin', 'admin@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'ADMIN'),
     ('Carla', 'López', 'carla.l', 'carla@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
     ('Mario', 'Ruiz', 'mario.r', 'mario@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
     ('Laura', 'Martínez', 'laura.m', 'laura@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),

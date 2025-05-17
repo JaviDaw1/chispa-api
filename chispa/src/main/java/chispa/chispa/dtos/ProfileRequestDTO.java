@@ -44,5 +44,5 @@ public class ProfileRequestDTO {
     private final Boolean isOnline;
 
     @NotNull(message = "El tipo de relación preferida no puede estar vacío")
-    private final PreferredRelationship preferredRelationship;  // Enum: 'friendship', 'casual', 'serious'
+    private final PreferredRelationship preferredRelationship;
 }
