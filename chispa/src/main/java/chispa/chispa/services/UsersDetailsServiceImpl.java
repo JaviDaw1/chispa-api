@@ -59,6 +59,19 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
         return userDetailsRepository.save(user);
     }
 
+    public Users updatePassword(Long userId, String newPassword) {
+        Users user = userDetailsRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return null;
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return userDetailsRepository.save(user);
+    }
+
+    public Users findByEmail(String email) {
+        return (Users) userDetailsRepository.findByEmail(email);
+    }
+
     public Users findById(Long userId) {
         return userDetailsRepository.findById(userId).orElse(null);
     }

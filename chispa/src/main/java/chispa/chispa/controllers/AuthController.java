@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UsersDetailsServiceImpl userDetailsService;
     private final UsersDetailsServiceImpl usersDetailsServiceImpl;
+    private final PasswordEncoder passwordEncoder;
 
     //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -51,6 +53,7 @@ public class AuthController {
         String token = jwtService.createToken(userDetails.getUsername(), userDetails.getAuthorities(), getUserRole(userDetails));
         return ResponseEntity.ok(Map.of("token", token, "user", userDetails));
     }
+
     private Role getUserRole(UserDetails userDetails) {
         if (userDetails != null) {
             if (userDetails.getAuthorities() != null && !userDetails.getAuthorities().isEmpty()) {
@@ -63,15 +66,18 @@ public class AuthController {
             return Role.USER;
         }
     }
+
     @PostMapping("/signup")
     public ResponseEntity<UserDetails> signup(@RequestBody SignupRequest signupRequest) {
         UserDetails userDetails = userDetailsService.create(signupRequest);
         return ResponseEntity.ok(userDetails);
     }
+
     @GetMapping("/users")
     public List<Users> getAllUsers() {
         return userDetailsService.getAll();
     }
+
     @GetMapping("/isAdmin")
     public boolean isAdmin(Authentication authentication) {
         if (authentication != null && authentication.getAuthorities().stream()
@@ -80,6 +86,7 @@ public class AuthController {
         }
         return false;
     }
+
     @GetMapping("/users/{userId}")
     public ResponseEntity<Users> getUserById(@PathVariable Long userId) {
         Users user = userDetailsService.findById(userId);
@@ -94,5 +101,31 @@ public class AuthController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         usersDetailsServiceImpl.deleteById(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/change-password/{userId}")
+    public ResponseEntity<?> updatePassword(@PathVariable Long userId, @RequestBody Map<String, String> request) {
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+
+        if (currentPassword == null || newPassword == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Se requieren la contraseña actual y la nueva contraseña"));
+        }
+
+        Users user = userDetailsService.findById(userId);
+        if (user == null) {
+            return ResponseEntity.status(404).body(Map.of("error", "Usuario no encontrado"));
+        }
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Contraseña actual incorrecta"));
+        }
+
+        Users updatedUser = userDetailsService.updatePassword(userId, newPassword);
+
+        return ResponseEntity.ok(Map.of(
+                "message", "Contraseña actualizada correctamente",
+                "user", updatedUser
+        ));
     }
 }
