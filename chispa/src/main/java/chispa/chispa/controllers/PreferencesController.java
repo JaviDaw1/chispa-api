@@ -6,6 +6,7 @@ import chispa.chispa.mappers.PreferencesMapper;
 import chispa.chispa.services.PreferencesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +34,17 @@ public class PreferencesController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<PreferencesResponseDTO> getPreferencesByUserId(@PathVariable Long userId) {
+    public ResponseEntity<?> getPreferencesByUserId(@PathVariable Long userId) {
         log.info("getPreferencesByUserId");
-        return ResponseEntity.ok(preferencesMapper.toResponse(preferencesService.findByUserId(userId)));
+
+        var preference = preferencesService.findByUserId(userId);
+
+        if (preference == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Preferencias no encontradas");
+        }
+
+        return ResponseEntity.ok(preferencesMapper.toResponse(preference));
     }
 
     @PostMapping
