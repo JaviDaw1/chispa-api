@@ -8,6 +8,7 @@ import chispa.chispa.services.MessagesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MessagesController {
     private final MessagesService messagesService;
     private final MessagesMapper messagesMapper;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @GetMapping("")
     public ResponseEntity<List<MessagesResponseDTO>> getAllMessages() {
@@ -37,6 +39,13 @@ public class MessagesController {
     public ResponseEntity<MessagesResponseDTO> postMessage(@RequestBody MessagesRequestDTO messagesRequestDto) {
         log.info("addMessage");
         Messages messageSaved = messagesService.save(messagesMapper.toModel(messagesRequestDto));
+
+        // Notificar a través de WebSocket
+        messagingTemplate.convertAndSend(
+                "/topic/chat/" + messageSaved.getMatch().getId(),
+                messagesMapper.toResponse(messageSaved)
+        );
+
         return ResponseEntity.created(null).body(messagesMapper.toResponse(messageSaved));
     }
 
@@ -44,6 +53,13 @@ public class MessagesController {
     public ResponseEntity<MessagesResponseDTO> putMessage(@PathVariable Long id, @RequestBody MessagesRequestDTO messagesRequestDto) {
         log.info("putMessage");
         Messages messageUpdated = messagesService.update(id, messagesMapper.toModel(messagesRequestDto));
+
+        // Notificar actualización
+        messagingTemplate.convertAndSend(
+                "/topic/chat/" + messageUpdated.getMatch().getId() + "/updates",
+                messagesMapper.toResponse(messageUpdated)
+        );
+
         return ResponseEntity.ok(messagesMapper.toResponse(messageUpdated));
     }
 
