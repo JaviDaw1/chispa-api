@@ -42,6 +42,8 @@ public class SecurityConfiguration {
                 .requestMatchers(mvc.pattern("/api/auth/login")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/users")).permitAll()
                 .requestMatchers(mvc.pattern("/api/auth/signup")).permitAll()
+                .requestMatchers(mvc.pattern("/api/auth/forgot-password")).permitAll() // <-- Añade esta línea
+                .requestMatchers(mvc.pattern("/api/auth/reset-password")).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

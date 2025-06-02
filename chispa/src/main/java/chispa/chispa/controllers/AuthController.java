@@ -5,6 +5,7 @@ import chispa.chispa.auth.LoginRequest;
 import chispa.chispa.auth.SignupRequest;
 import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.Role;
+import chispa.chispa.services.EmailService;
 import chispa.chispa.services.UsersDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,6 +30,7 @@ public class AuthController {
     private final UsersDetailsServiceImpl userDetailsService;
     private final UsersDetailsServiceImpl usersDetailsServiceImpl;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -127,5 +130,38 @@ public class AuthController {
                 "message", "Contraseña actualizada correctamente",
                 "user", updatedUser
         ));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        Users user = userDetailsService.findByEmail(email);
+        if (user == null) {
+            return ResponseEntity.status(404).body(Map.of("message", "Usuario no encontrado"));
+        }
+        String token = java.util.UUID.randomUUID().toString();
+        user.setResetToken(token);
+        user.setResetTokenExpiry(LocalDateTime.now().plusHours(1));
+        userDetailsService.save(user);
+
+        // Enviar el email con el enlace de recuperación
+        emailService.sendResetPasswordEmail(user.getEmail(), token);
+
+        return ResponseEntity.ok(Map.of("message", "Correo de recuperación enviado"));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> request) {
+        String token = request.get("token");
+        String newPassword = request.get("newPassword");
+        Users user = userDetailsService.findByResetToken(token);
+        if (user == null || user.getResetTokenExpiry() == null || user.getResetTokenExpiry().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.status(400).body(Map.of("message", "Token inválido o expirado"));
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetToken(null);
+        user.setResetTokenExpiry(null);
+        userDetailsService.save(user);
+        return ResponseEntity.ok(Map.of("message", "Contraseña actualizada correctamente"));
     }
 }

@@ -75,4 +75,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
     public Users findById(Long userId) {
         return userDetailsRepository.findById(userId).orElse(null);
     }
+
+    public Users findByResetToken(String token) {
+        return userDetailsRepository.findByResetToken(token);
+    }
 }
