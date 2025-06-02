@@ -17,6 +17,11 @@ CREATE TABLE IF NOT EXISTS user_ (
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('USER', 'ADMIN') DEFAULT 'USER'
+    reset_token VARCHAR
+(
+    255
+),
+    reset_token_expiry DATETIME
     );
 
 CREATE TABLE IF NOT EXISTS profile (
