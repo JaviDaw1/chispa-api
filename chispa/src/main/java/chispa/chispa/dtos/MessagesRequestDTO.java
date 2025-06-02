@@ -2,6 +2,7 @@ package chispa.chispa.dtos;
 
 import chispa.chispa.models.Matches;
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.MessageState;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,4 +25,7 @@ public class MessagesRequestDTO {
 
     @NotNull(message = "El estado de lectura no puede estar vacío")
     private Boolean isRead;
+
+    @NotNull(message = "El estado del mensaje no puede estar vacío")
+    private MessageState messageState;
 }

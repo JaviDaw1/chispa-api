@@ -2,6 +2,7 @@ package chispa.chispa.repositories;
 
 import chispa.chispa.models.Matches;
 import chispa.chispa.models.Preferences;
+import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.MatchState;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MatchesRepository extends JpaRepository<Matches, Long> {
     List<Matches> findMatchesByMatchState(MatchState matchState);
@@ -25,4 +27,6 @@ public interface MatchesRepository extends JpaRepository<Matches, Long> {
 
     @Query("SELECT m FROM Matches m WHERE m.user1.id = :userId OR m.user2.id = :userId")
     List<Matches> findByEitherUserId(@Param("userId") Long userId);
+
+    Optional<Matches> findMatchesByUser1IdAndUser2Id(Long user1, Long user2);
 }

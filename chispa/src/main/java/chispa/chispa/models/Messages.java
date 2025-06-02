@@ -1,12 +1,12 @@
 package chispa.chispa.models;
 
+import chispa.chispa.models.enums.MatchState;
+import chispa.chispa.models.enums.MessageState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.apache.catalina.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -41,4 +41,15 @@ public class Messages {
 
     @Column(nullable = false)
     private Boolean isRead;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MessageState messageState;
+
+    @PrePersist
+    public void prePersist() {
+        if (messageState == null) {
+            messageState = MessageState.SEND;
+        }
+    }
 }

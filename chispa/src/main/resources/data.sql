@@ -16,11 +16,8 @@ CREATE TABLE IF NOT EXISTS user_ (
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('USER', 'ADMIN') DEFAULT 'USER'
-    reset_token VARCHAR
-(
-    255
-),
+    role ENUM('USER', 'ADMIN') DEFAULT 'USER',
+    reset_token VARCHAR(255),
     reset_token_expiry DATETIME
     );
 
@@ -68,7 +65,7 @@ CREATE TABLE IF NOT EXISTS matches (
                                        user1_id INT NOT NULL,
                                        user2_id INT NOT NULL,
                                        matchDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-                                       matchState ENUM('PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED') DEFAULT 'PENDING',
+                                       matchState ENUM('MATCHED', 'BLOCKED') DEFAULT 'MATCHED',
     FOREIGN KEY (user1_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (user2_id) REFERENCES user_(id) ON DELETE CASCADE
     );
@@ -82,6 +79,7 @@ CREATE TABLE IF NOT EXISTS messages (
                                         content TEXT NOT NULL,
                                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                                         isRead TINYINT(1) DEFAULT 0,
+    messageState ENUM('SEND', 'BLOCKED') DEFAULT 'SEND',
     FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE,
     FOREIGN KEY (senderUser_id) REFERENCES user_(id) ON DELETE CASCADE
     );
@@ -92,7 +90,7 @@ CREATE TABLE IF NOT EXISTS likes (
                                      liker_id INT NOT NULL,
                                      liked_id INT NOT NULL,
                                      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                                     state ENUM('PENDING', 'ACCEPTED', 'REJECTED') DEFAULT 'PENDING',
+                                     state ENUM('LIKED', 'BLOCKED') DEFAULT 'LIKED',
     FOREIGN KEY (liker_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (liked_id) REFERENCES user_(id) ON DELETE CASCADE
     );

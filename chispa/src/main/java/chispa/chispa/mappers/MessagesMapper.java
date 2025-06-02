@@ -19,7 +19,8 @@ public class MessagesMapper {
                 messages.getReceiverUser(),
                 messages.getContent(),
                 messages.getTimestamp(),
-                messages.getIsRead()
+                messages.getIsRead(),
+                messages.getMessageState()
         );
     }
     public List<MessagesResponseDTO> toResponse(List<Messages> messagess) {
@@ -35,7 +36,8 @@ public class MessagesMapper {
                 messagesRequestDto.getReceiverUser(),
                 messagesRequestDto.getContent(),
                 LocalDateTime.now(),
-                messagesRequestDto.getIsRead()
+                messagesRequestDto.getIsRead(),
+                messagesRequestDto.getMessageState()
         );
     }
 }

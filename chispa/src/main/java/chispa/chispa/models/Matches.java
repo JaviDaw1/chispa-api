@@ -40,7 +40,7 @@ public class Matches {
     @PrePersist
     public void prePersist() {
         if (matchState == null) {
-            matchState = MatchState.PENDING;
+            matchState = MatchState.MATCHED;
         }
     }
 }

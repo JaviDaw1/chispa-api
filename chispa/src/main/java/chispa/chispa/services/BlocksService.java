@@ -9,6 +9,8 @@ public interface BlocksService {
 
     Blocks save(Blocks block);
 
+    void unblock(Long blockId);
+
     Blocks update(Long id, Blocks block);
 
     void deleteById(Long id);

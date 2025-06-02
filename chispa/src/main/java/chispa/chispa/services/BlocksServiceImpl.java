@@ -1,13 +1,15 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Blocks;
-import chispa.chispa.repositories.BlocksRepository;
-import chispa.chispa.repositories.UsersDetailsRepository;
+import chispa.chispa.models.Messages;
+import chispa.chispa.models.enums.LikeState;
+import chispa.chispa.models.enums.MatchState;
+import chispa.chispa.models.enums.MessageState;
+import chispa.chispa.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +19,9 @@ import java.util.List;
 public class BlocksServiceImpl implements BlocksService {
     private final BlocksRepository blocksRepository;
     private final UsersDetailsRepository usersRepository;
+    private final MatchesRepository matchesRepository;
+    private final LikesRepository likesRepository;
+    private final MessagesRepository messagesRepository;
 
     @Override
     public List<Blocks> findAll() {
@@ -30,9 +35,73 @@ public class BlocksServiceImpl implements BlocksService {
 
     @Override
     public Blocks save(Blocks block) {
-        block.setReporter(usersRepository.findById(block.getReporter().getId()).get());
-        block.setReported(usersRepository.findById(block.getReported().getId()).get());
-        return blocksRepository.save(block);
+        block.setReporter(usersRepository.findById(block.getReporter().getId()).orElseThrow());
+        block.setReported(usersRepository.findById(block.getReported().getId()).orElseThrow());
+
+        Blocks savedBlock = blocksRepository.save(block);
+
+        Long reporterId = block.getReporter().getId();
+        Long reportedId = block.getReported().getId();
+
+        matchesRepository.findMatchesByUser1IdAndUser2Id(reporterId, reportedId).ifPresent(match -> {
+            match.setMatchState(MatchState.BLOCKED);
+            matchesRepository.save(match);
+        });
+
+        likesRepository.findByLikerIdAndLikedId(reporterId, reportedId).ifPresent(like -> {
+            like.setState(LikeState.BLOCKED);
+            likesRepository.save(like);
+        });
+
+        likesRepository.findByLikerIdAndLikedId(reportedId, reporterId).ifPresent(like -> {
+            like.setState(LikeState.BLOCKED);
+            likesRepository.save(like);
+        });
+
+        List<Messages> messages1 = messagesRepository.findBySenderUserIdAndReceiverUserId(reporterId, reportedId);
+        List<Messages> messages2 = messagesRepository.findBySenderUserIdAndReceiverUserId(reportedId, reporterId);
+
+        messages1.forEach(msg -> msg.setMessageState(MessageState.BLOCKED));
+        messages2.forEach(msg -> msg.setMessageState(MessageState.BLOCKED));
+
+        messages1.addAll(messages2);
+        messagesRepository.saveAll(messages1);
+
+        return savedBlock;
+    }
+
+    @Override
+    public void unblock(Long blockId) {
+        Blocks block = this.findById(blockId);
+        Long reporterId = block.getReporter().getId();
+        Long reportedId = block.getReported().getId();
+
+        // Restaurar Match
+        matchesRepository.findMatchesByUser1IdAndUser2Id(reporterId, reportedId).ifPresent(match -> {
+            match.setMatchState(MatchState.MATCHED);
+            matchesRepository.save(match);
+        });
+
+        // Restaurar Likes
+        likesRepository.findByLikerIdAndLikedId(reporterId, reportedId).ifPresent(like -> {
+            like.setState(LikeState.LIKED);
+            likesRepository.save(like);
+        });
+
+        likesRepository.findByLikerIdAndLikedId(reportedId, reporterId).ifPresent(like -> {
+            like.setState(LikeState.LIKED);
+            likesRepository.save(like);
+        });
+
+        List<Messages> messages1 = messagesRepository.findBySenderUserIdAndReceiverUserId(reporterId, reportedId);
+        List<Messages> messages2 = messagesRepository.findBySenderUserIdAndReceiverUserId(reportedId, reporterId);
+
+        messages1.forEach(msg -> msg.setMessageState(MessageState.SEND));
+        messages2.forEach(msg -> msg.setMessageState(MessageState.SEND));
+        messages1.addAll(messages2);
+        messagesRepository.saveAll(messages1);
+
+        blocksRepository.deleteById(blockId);
     }
 
     @Override
@@ -102,4 +171,5 @@ public class BlocksServiceImpl implements BlocksService {
     public List<Blocks> findByReportedId(Long reportedId) {
         return blocksRepository.findByReportedId(reportedId);
     }
+
 }

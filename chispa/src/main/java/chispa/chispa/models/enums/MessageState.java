@@ -1,6 +1,6 @@
 package chispa.chispa.models.enums;
 
-public enum LikeState {
-    LIKED,
+public enum MessageState {
+    SEND,
     BLOCKED
 }

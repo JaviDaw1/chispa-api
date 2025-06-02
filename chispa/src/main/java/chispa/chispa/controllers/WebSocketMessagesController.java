@@ -47,7 +47,8 @@ public class WebSocketMessagesController {
                 message.getReceiverUser(),
                 message.getContent(),
                 message.getTimestamp(),
-                message.getIsRead()
+                message.getIsRead(),
+                message.getMessageState()
         );
     }
 }

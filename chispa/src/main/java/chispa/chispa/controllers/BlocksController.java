@@ -52,6 +52,15 @@ public class BlocksController {
         );
     }
 
+    @PutMapping("/unblock/{id}")
+    public ResponseEntity<Void> unblockUser(
+            @PathVariable Long id
+    ) {
+        log.info("Unblocking block ID: {}", id);
+        blocksService.unblock(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<BlocksResponseDTO> putBlocks(
             @PathVariable Long id,

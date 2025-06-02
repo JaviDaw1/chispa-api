@@ -127,12 +127,10 @@ public class LikesServiceImpl implements LikesService {
 
         if (!matchExists) {
             Matches match = new Matches();
-            // No necesitas ordenar los IDs porque el método existsMatchBetweenUsers
-            // ya verifica en ambos sentidos
             match.setUser1(usersRepository.findById(user1Id).get());
             match.setUser2(usersRepository.findById(user2Id).get());
             match.setMatchDate(LocalDateTime.now());
-            match.setMatchState(MatchState.PENDING);
+            match.setMatchState(MatchState.MATCHED);
             matchesRepository.save(match);
         }
     }

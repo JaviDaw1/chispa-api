@@ -36,7 +36,7 @@ public class Likes {
     @PrePersist
     public void prePersist() {
         if (state == null) {
-            state = LikeState.PENDING;
+            state = LikeState.LIKED;
         }
     }
 }

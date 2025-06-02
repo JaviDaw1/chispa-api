@@ -2,6 +2,7 @@ package chispa.chispa.dtos;
 
 import chispa.chispa.models.Matches;
 import chispa.chispa.models.Users;
+import chispa.chispa.models.enums.MessageState;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,4 +17,5 @@ public class MessagesResponseDTO {
     private final String content;
     private final LocalDateTime timestamp;
     private final Boolean isRead;
+    private final MessageState messageState;
 }

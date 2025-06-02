@@ -78,6 +78,4 @@ public class MatchesServiceImpl implements MatchesService {
         }
         return matchesRepository.save(matchToPatch);
     }
-
-
 }
