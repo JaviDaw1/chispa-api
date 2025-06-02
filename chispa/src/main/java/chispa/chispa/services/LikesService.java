@@ -25,8 +25,6 @@ public interface LikesService {
 
     Long countTotalLikesByLikedId(Long reportedId);
 
-    Long countTotalLikes();
-
     List<Likes> findByLikerId(Long likerId);
 
     List<Likes> findByLikedId(Long reportedId);

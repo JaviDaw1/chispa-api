@@ -17,8 +17,6 @@ public interface MessagesService {
 
     List<Messages> findByMatchId(Long matchId);
 
-//    public Messages patch(Long id, Messages message);
-
     Messages markAsRead(Long messageId);
 
     void deleteMessagesByMatchId(Long matchId);

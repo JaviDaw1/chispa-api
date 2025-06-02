@@ -2,7 +2,6 @@ package chispa.chispa.models;
 
 import chispa.chispa.models.enums.Gender;
 import chispa.chispa.models.enums.PreferredRelationship;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -77,6 +76,6 @@ public class Profile {
         if (birthDate != null) {
             return Period.between(birthDate, LocalDate.now()).getYears();
         }
-        return 0; // Si birthDate es null, retorna 0
+        return 0;
     }
 }

@@ -76,13 +76,11 @@ public class BlocksServiceImpl implements BlocksService {
         Long reporterId = block.getReporter().getId();
         Long reportedId = block.getReported().getId();
 
-        // Restaurar Match
         matchesRepository.findMatchesByUser1IdAndUser2Id(reporterId, reportedId).ifPresent(match -> {
             match.setMatchState(MatchState.MATCHED);
             matchesRepository.save(match);
         });
 
-        // Restaurar Likes
         likesRepository.findByLikerIdAndLikedId(reporterId, reportedId).ifPresent(like -> {
             like.setState(LikeState.LIKED);
             likesRepository.save(like);
@@ -148,11 +146,6 @@ public class BlocksServiceImpl implements BlocksService {
     }
 
     @Override
-    public Long countBlocks() {
-        return blocksRepository.count();
-    }
-
-    @Override
     public Long countTotalBlocksByReporterId(Long reporterId) {
         return blocksRepository.countBlocksByReporterId(reporterId);
     }
@@ -171,5 +164,4 @@ public class BlocksServiceImpl implements BlocksService {
     public List<Blocks> findByReportedId(Long reportedId) {
         return blocksRepository.findByReportedId(reportedId);
     }
-
 }

@@ -56,7 +56,6 @@ public class MessagesServiceImpl implements MessagesService {
     public Messages update(Long id, Messages message) {
         Messages existing = findById(id);
 
-        // Solo permitir actualizar contenido y estado de lectura
         if (message.getContent() != null) {
             existing.setContent(message.getContent());
         }
@@ -95,7 +94,6 @@ public class MessagesServiceImpl implements MessagesService {
         return messagesRepository.save(message);
     }
 
-    // Método auxiliar para validar usuarios en un match
     private boolean isUsersInMatch(Matches match, Long userId1, Long userId2) {
         Long matchUser1 = match.getUser1().getId();
         Long matchUser2 = match.getUser2().getId();

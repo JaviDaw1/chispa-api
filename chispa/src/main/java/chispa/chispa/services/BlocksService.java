@@ -23,8 +23,6 @@ public interface BlocksService {
 
     Blocks patch(Long id, Blocks block);
 
-    Long countBlocks();
-
     List<Blocks> findByReporterId(Long reporterId);
 
     Long countTotalBlocksByReporterId(Long reporterId);
@@ -32,6 +30,4 @@ public interface BlocksService {
     Long countTotalBlocksByReportedId(Long reportedId);
 
     List<Blocks> findByReportedId(Long reportedId);
-
-
 }

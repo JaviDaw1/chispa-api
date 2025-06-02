@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -87,11 +86,6 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public Long countTotalLikes() {
-        return likesRepository.count();
-    }
-
-    @Override
     public List<Likes> findByLikerId(Long likerId) {
         return likesRepository.findByLikerId(likerId);
     }
@@ -103,7 +97,6 @@ public class LikesServiceImpl implements LikesService {
 
     @Override
     public Likes save(Likes like) {
-        // Verificar si ya existe un like recíproco
         Optional<Likes> reciprocalLike = likesRepository.findByLikerIdAndLikedId(
                 like.getLiked().getId(),
                 like.getLiker().getId()
@@ -113,7 +106,6 @@ public class LikesServiceImpl implements LikesService {
         like.setLiked(usersRepository.findById(like.getLiked().getId()).get());
         Likes savedLike = likesRepository.save(like);
 
-        // Si existe un like recíproco, crear un match
         if (reciprocalLike.isPresent()) {
             createMatch(like.getLiker().getId(), like.getLiked().getId());
         }
@@ -133,10 +125,5 @@ public class LikesServiceImpl implements LikesService {
             match.setMatchState(MatchState.MATCHED);
             matchesRepository.save(match);
         }
-    }
-
-    // Añade este método al repositorio de Likes
-    Optional<Likes> findByLikerIdAndLikedId(Long likerId, Long likedId) {
-        return null;
     }
 }

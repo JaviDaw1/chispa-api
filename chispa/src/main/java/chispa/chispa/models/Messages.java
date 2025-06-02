@@ -1,6 +1,5 @@
 package chispa.chispa.models;
 
-import chispa.chispa.models.enums.MatchState;
 import chispa.chispa.models.enums.MessageState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,6 @@
 package chispa.chispa.services;
 
 import chispa.chispa.models.Matches;
-import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.MatchState;
 
 import java.util.List;

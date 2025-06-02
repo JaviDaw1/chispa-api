@@ -15,8 +15,6 @@ import java.util.Optional;
 public interface MatchesRepository extends JpaRepository<Matches, Long> {
     List<Matches> findMatchesByMatchState(MatchState matchState);
 
-    List<Matches> findByUser1Id(Long user1Id);
-
     Long countByMatchState(MatchState matchState);
 
     // Método para verificar si existe un match entre dos usuarios

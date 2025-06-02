@@ -5,7 +5,6 @@ import chispa.chispa.models.Users;
 import chispa.chispa.models.enums.MessageState;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

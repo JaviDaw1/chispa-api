@@ -1,7 +1,6 @@
 package chispa.chispa.models;
 
 import chispa.chispa.models.enums.FavoriteGender;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

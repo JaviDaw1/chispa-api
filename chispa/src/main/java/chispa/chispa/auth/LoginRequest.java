@@ -1,4 +1,3 @@
-
 package chispa.chispa.auth;
 
 import lombok.Data;

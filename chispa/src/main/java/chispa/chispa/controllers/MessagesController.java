@@ -40,7 +40,6 @@ public class MessagesController {
         log.info("addMessage");
         Messages messageSaved = messagesService.save(messagesMapper.toModel(messagesRequestDto));
 
-        // Notificar a través de WebSocket
         messagingTemplate.convertAndSend(
                 "/topic/chat/" + messageSaved.getMatch().getId(),
                 messagesMapper.toResponse(messageSaved)
@@ -54,7 +53,6 @@ public class MessagesController {
         log.info("putMessage");
         Messages messageUpdated = messagesService.update(id, messagesMapper.toModel(messagesRequestDto));
 
-        // Notificar actualización
         messagingTemplate.convertAndSend(
                 "/topic/chat/" + messageUpdated.getMatch().getId() + "/updates",
                 messagesMapper.toResponse(messageUpdated)
@@ -62,13 +60,6 @@ public class MessagesController {
 
         return ResponseEntity.ok(messagesMapper.toResponse(messageUpdated));
     }
-
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<MessagesResponseDTO> patchMessage(@PathVariable Long id, @RequestBody MessagesRequestDTO messagesRequestDto) {
-//        log.info("patchMessage");
-//        Messages messagePatched = messagesService.patch(id, messagesMapper.toModel(messagesRequestDto));
-//        return ResponseEntity.ok(messagesMapper.toResponse(messagePatched));
-//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {

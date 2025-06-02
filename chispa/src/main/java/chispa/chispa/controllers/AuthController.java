@@ -32,21 +32,6 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    //    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
-//        );
-//
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        String token = jwtService.createToken(userDetails.getUsername(), userDetails.getAuthorities(), userDetails.getAuthorities().iterator().next().getAuthority());
-//
-//        // Verificar si userDetails.getAuthorities() es null
-//        Object authorities = userDetails.getAuthorities() != null ? userDetails.getAuthorities() : "No authorities";
-//
-//        return ResponseEntity.ok(Map.of("token", token, "role", userDetails.getAuthorities()));
-//    }
-// AuthController.java
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -143,8 +128,6 @@ public class AuthController {
         user.setResetToken(token);
         user.setResetTokenExpiry(LocalDateTime.now().plusHours(1));
         userDetailsService.save(user);
-
-        // Enviar el email con el enlace de recuperación
         emailService.sendResetPasswordEmail(user.getEmail(), token);
 
         return ResponseEntity.ok(Map.of("message", "Correo de recuperación enviado"));

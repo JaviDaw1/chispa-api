@@ -1,13 +1,10 @@
 package chispa.chispa.models;
 
-import chispa.chispa.models.enums.LikeState;
 import chispa.chispa.models.enums.MatchState;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

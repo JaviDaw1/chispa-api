@@ -23,5 +23,5 @@ public class PreferencesRequestDTO {
     private final Integer maxDistance;
 
     @NotNull(message = "El género favorito no puede estar vacío")
-    private final FavoriteGender favoriteGender; //Enum: 'male', 'female', 'other'
+    private final FavoriteGender favoriteGender;
 }

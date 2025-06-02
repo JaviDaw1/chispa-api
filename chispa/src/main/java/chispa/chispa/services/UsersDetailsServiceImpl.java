@@ -38,14 +38,6 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
         return userDetailsRepository.findAll();
     }
 
-    //    public UsersDetails create(SignupRequest signupRequest){
-//        return userDetailsRepository.save(
-//                new Users(
-//                        signupRequest.getEmail(),
-//                        passwordEncoder.encode(signupRequest.getPassword())
-//                )
-//        );
-//    }
     public UserDetails create(SignupRequest signupRequest) {
         Users user = new Users(
                 signupRequest.getFirstname(),

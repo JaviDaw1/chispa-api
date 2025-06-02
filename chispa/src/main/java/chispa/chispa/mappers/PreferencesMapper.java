@@ -5,7 +5,6 @@ import chispa.chispa.dtos.PreferencesResponseDTO;
 import chispa.chispa.models.Preferences;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Component

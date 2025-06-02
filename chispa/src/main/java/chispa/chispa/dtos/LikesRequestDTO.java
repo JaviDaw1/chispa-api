@@ -14,5 +14,5 @@ public class LikesRequestDTO {
     private Users liked;
 
     @NotNull(message = "El estado del like no puede estar vacío")
-    private LikeState state; // ENUM: 'pending', 'accepted', 'rejected'
+    private LikeState state;
 }

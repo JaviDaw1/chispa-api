@@ -3,7 +3,6 @@ package chispa.chispa.dtos;
 import chispa.chispa.models.Users;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

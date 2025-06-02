@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public interface ProfilesRepository extends JpaRepository<Profile, Long> {
     Profile findByUserId(Long userId);

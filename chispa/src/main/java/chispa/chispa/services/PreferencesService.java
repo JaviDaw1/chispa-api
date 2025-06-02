@@ -17,6 +17,5 @@ public interface PreferencesService {
     void deleteById(Long id);
 
     List<Preferences> findAll();
-
 }
 

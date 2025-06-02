@@ -2,7 +2,6 @@ package chispa.chispa.services;
 
 import chispa.chispa.models.Profile;
 import chispa.chispa.models.enums.Gender;
-import chispa.chispa.models.enums.PreferredRelationship;
 import chispa.chispa.repositories.ProfilesRepository;
 import chispa.chispa.repositories.UsersDetailsRepository;
 import jakarta.transaction.Transactional;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -60,11 +58,6 @@ public class ProfilesServiceImpl implements ProfilesService {
     @Override
     public List<Profile> findAll() {
         return profileRepository.findAll();
-    }
-
-    @Override
-    public Map<PreferredRelationship, Long> countProfilesByPreferredRelationship(PreferredRelationship preferredRelationship) {
-        return profileRepository.countProfilesByPreferredRelationship(preferredRelationship);
     }
 
     @Override

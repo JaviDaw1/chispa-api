@@ -14,5 +14,5 @@ public class MatchesRequestDTO {
     private Users user2;
 
     @NotNull(message = "El estado del match no puede estar vacío")
-    private MatchState matchState; //ENUM: 'pending', 'accepted', 'rejected', 'cancelled'
+    private MatchState matchState;
 }
