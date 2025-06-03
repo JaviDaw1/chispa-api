@@ -53,8 +53,10 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
+    @Column(name = "reset_token")
     private String resetToken;
 
+    @Column(name = "reset_token_expiry")
     private LocalDateTime resetTokenExpiry;
 
     public Users(String firstname, String lastname, String username, String email, String password) {
