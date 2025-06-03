@@ -10,39 +10,68 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * DTO for user profile request data.
+ * Contains all necessary fields to update or create a user profile.
+ */
 @Data
 public class ProfileRequestDTO {
+    /**
+     * The user associated with this profile
+     */
     private final Users user;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
+    /**
+     * User's first name; cannot be blank and max length is 100 characters
+     */
+    @NotBlank(message = "Name cannot be blank")
+    @Size(max = 100, message = "Name cannot exceed 100 characters")
     private final String name;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
-    @Size(max = 100, message = "El apellido no puede tener más de 100 caracteres")
+    /**
+     * User's last name; cannot be blank and max length is 100 characters
+     */
+    @NotBlank(message = "Last name cannot be blank")
+    @Size(max = 100, message = "Last name cannot exceed 100 characters")
     private final String lastName;
 
-    @NotNull(message = "El género no puede estar vacío")
-    private final Gender gender; // Enum: 'male', 'female', 'other'
+    /**
+     * User's gender; must be provided. Enum values: male, female, other
+     */
+    @NotNull(message = "Gender cannot be null")
+    private final Gender gender;
 
-    @NotNull(message = "La fecha de nacimiento no puede estar vacía")
+    /**
+     * User's date of birth; cannot be null
+     */
+    @NotNull(message = "Birth date cannot be null")
     private final LocalDate birthDate;
 
-    @Size(max = 255, message = "La ubicación no puede tener más de 255 caracteres")
+    /**
+     * User's location description; optional with max length 255 characters
+     */
+    @Size(max = 255, message = "Location cannot exceed 255 characters")
     private final String location;
 
-    @Size(max = 2000, message = "La biografía no puede tener más de 2000 caracteres")
+    /**
+     * Short biography of the user; optional with max length 2000 characters
+     */
+    @Size(max = 2000, message = "Biography cannot exceed 2000 characters")
     private final String bio;
 
-    @Size(max = 1000, message = "Los intereses no pueden tener más de 1000 caracteres")
+    /** User interests; optional with max length 1000 characters */
+    @Size(max = 1000, message = "Interests cannot exceed 1000 characters")
     private final String interests;
 
+    /** Profile photo data or URL; optional with max length 5000 characters */
     @Size(max = 5000)
     private final String profilePhoto;
 
-    @NotNull(message = "El estado en línea no puede estar vacío")
+    /** Whether the user is currently online; cannot be null */
+    @NotNull(message = "Online status cannot be null")
     private final Boolean isOnline;
 
-    @NotNull(message = "El tipo de relación preferida no puede estar vacío")
+    /** Preferred type of relationship; must be provided */
+    @NotNull(message = "Preferred relationship cannot be null")
     private final PreferredRelationship preferredRelationship;
 }

@@ -8,6 +8,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a message sent between matched users.
+ */
 @Entity
 @Getter
 @Setter
@@ -19,32 +22,40 @@ public class Messages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Match associated with the message
     @ManyToOne
     @JoinColumn(name = "match_id", nullable = false)
     private Matches match;
 
+    // User sending the message
     @ManyToOne
     @JoinColumn(name = "senderUser_id", nullable = false)
     private Users senderUser;
 
+    // User receiving the message
     @ManyToOne
     @JoinColumn(name = "receiverUser_id", nullable = false)
     private Users receiverUser;
 
-    @NotBlank(message = "El contenido del mensaje no puede estar vacío")
-    @Size(max = 2000, message = "El contenido del mensaje no puede tener más de 2000 caracteres")
+    // Message content
+    @NotBlank(message = "Message content cannot be blank")
+    @Size(max = 2000, message = "Message content must not exceed 2000 characters")
     private String content;
 
+    // Time message was sent
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    // Whether the message has been read
     @Column(nullable = false)
     private Boolean isRead;
 
+    // State of the message
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MessageState messageState;
 
+    // Default message state before persisting
     @PrePersist
     public void prePersist() {
         if (messageState == null) {

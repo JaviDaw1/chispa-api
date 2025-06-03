@@ -11,15 +11,21 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Implementation of the ProfilesService interface.
+ * Handles business logic for user profiles.
+ */
 @Transactional
 @Service
 @AllArgsConstructor
 public class ProfilesServiceImpl implements ProfilesService {
+    // Repository dependencies
     private final ProfilesRepository profileRepository;
     private final UsersDetailsRepository usersRepository;
 
     @Override
     public Profile findById(Long id) {
+        // Find profile or throw exception if not found
         return profileRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Profiles not found"));
     }
 
@@ -30,12 +36,14 @@ public class ProfilesServiceImpl implements ProfilesService {
 
     @Override
     public Profile save(Profile profile) {
+        // Validate user exists
         profile.setUser(usersRepository.findById(profile.getUser().getId()).orElseThrow());
         return profileRepository.save(profile);
     }
 
     @Override
     public Profile update(Long id, Profile profile) {
+        // Find existing profile and update its fields
         Profile profileUpdated = this.findById(id);
         profileUpdated.setName(profile.getName());
         profileUpdated.setBio(profile.getBio());
@@ -67,12 +75,14 @@ public class ProfilesServiceImpl implements ProfilesService {
 
     @Override
     public Profile setOnline(Profile profile) {
+        // Set profile online status to true
         profile.setIsOnline(true);
         return profileRepository.save(profile);
     }
 
     @Override
     public Profile setOffline(Profile profile) {
+        // Set profile online status to false
         profile.setIsOnline(false);
         return profileRepository.save(profile);
     }

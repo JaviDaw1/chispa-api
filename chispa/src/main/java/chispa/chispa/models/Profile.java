@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+/**
+ * Entity representing additional profile details of a user.
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -25,16 +28,17 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Owner of the profile
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
+    @NotBlank(message = "Name cannot be blank")
+    @Size(max = 100, message = "Name must not exceed 100 characters")
     private String name;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
-    @Size(max = 100, message = "El apellido no puede tener más de 100 caracteres")
+    @NotBlank(message = "Last name cannot be blank")
+    @Size(max = 100, message = "Last name must not exceed 100 characters")
     private String lastName;
 
     @Enumerated(EnumType.STRING)
@@ -44,20 +48,20 @@ public class Profile {
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @Size(max = 255, message = "La ubicación no puede tener más de 255 caracteres")
-    @Column(nullable = true)
+    // Optional location info
+    @Size(max = 255)
     private String location;
 
-    @Size(max = 2000, message = "La biografía no puede tener más de 2000 caracteres")
-    @Column(nullable = true)
+    // Optional bio
+    @Size(max = 2000)
     private String bio;
 
-    @Size(max = 1000, message = "Los intereses no pueden tener más de 1000 caracteres")
-    @Column(nullable = true)
+    // Optional interests
+    @Size(max = 1000)
     private String interests;
 
-    @Size(max = 5000, message = "La foto de perfil no puede tener más de 5000 caracteres")
-    @Column(nullable = true)
+    // Optional profile photo (e.g., base64 or URL)
+    @Size(max = 5000)
     private String profilePhoto;
 
     @Column(nullable = false)
@@ -71,7 +75,11 @@ public class Profile {
     @Column(nullable = false)
     private PreferredRelationship preferredRelationship;
 
-    // Método para calcular la edad de manera dinámica
+    /**
+     * Calculates the user's age based on birth date.
+     *
+     * @return the age in years
+     */
     public int getAge() {
         if (birthDate != null) {
             return Period.between(birthDate, LocalDate.now()).getYears();

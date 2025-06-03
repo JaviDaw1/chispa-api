@@ -13,8 +13,18 @@ import static chispa.chispa.models.enums.Permission.*;
 
 @Getter
 @RequiredArgsConstructor
+/**
+ * Enum representing the different roles in the system.
+ * Each role can have a set of permissions.
+ */
 public enum Role {
+    /**
+     * Client role with no special permissions.
+     */
     CLIENT(Collections.emptySet()),
+    /**
+     * Admin role with all admin and client permissions.
+     */
     ADMIN(
             Set.of(
                     ADMIN_READ,
@@ -27,6 +37,9 @@ public enum Role {
                     CLIENT_CREATE
             )
     ),
+    /**
+     * User role with client permissions only.
+     */
     USER(
             Set.of(
                     CLIENT_READ,
@@ -36,8 +49,16 @@ public enum Role {
             )
     );
 
+    /**
+     * Set of permissions assigned to the role.
+     */
     private final Set<Permission> permissions;
 
+    /**
+     * Returns a list of authorities (permissions) for Spring Security.
+     *
+     * @return List of SimpleGrantedAuthority
+     */
     public List<SimpleGrantedAuthority> getAuthorities() {
         var authorities = getPermissions()
                 .stream()
@@ -47,3 +68,4 @@ public enum Role {
         return authorities;
     }
 }
+

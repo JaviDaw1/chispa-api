@@ -9,15 +9,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of the PreferencesService interface.
+ * Handles business logic for user preferences.
+ */
 @Transactional
 @Service
 @AllArgsConstructor
 public class PreferencesServiceImpl implements PreferencesService {
+    // Repository dependencies
     private final PreferencesRepository preferencesRepository;
     private final UsersDetailsRepository usersRepository;
 
     @Override
     public Preferences findById(Long id) {
+        // Find preferences or throw exception if not found
         return preferencesRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Preferences not found"));
     }
 
@@ -28,12 +34,14 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     @Override
     public Preferences save(Preferences preferences) {
+        // Validate user exists
         preferences.setUser(usersRepository.findById(preferences.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("Preferences not found")));
         return preferencesRepository.save(preferences);
     }
 
     @Override
     public Preferences update(Long id, Preferences preferences) {
+        // Find existing preferences and update its fields
         Preferences updatedPreferences = this.findById(id);
         updatedPreferences.setUser(preferences.getUser());
         updatedPreferences.setFavoriteGender(preferences.getFavoriteGender());
