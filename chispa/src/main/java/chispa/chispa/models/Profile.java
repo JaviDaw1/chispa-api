@@ -61,7 +61,6 @@ public class Profile {
     private String interests;
 
     // Optional profile photo (e.g., base64 or URL)
-    @Size(max = 5000)
     private String profilePhoto;
 
     @Column(nullable = false)

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS profile (
     location VARCHAR(255),
     bio TEXT,
     interests TEXT,
-    profilePhoto VARCHAR(5000),
+    profilePhoto TEXT,
     isOnline TINYINT(1) DEFAULT 0,
     lastActive DATETIME,
     preferredRelationship ENUM('FRIENDSHIP', 'CASUAL', 'SERIOUS', 'LONG_TERM', 'OPEN', 'HOOKUP', 'MARRIAGE', 'NOT_SURE') DEFAULT 'FRIENDSHIP',

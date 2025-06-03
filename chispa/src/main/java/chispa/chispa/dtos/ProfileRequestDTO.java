@@ -63,8 +63,7 @@ public class ProfileRequestDTO {
     @Size(max = 1000, message = "Interests cannot exceed 1000 characters")
     private final String interests;
 
-    /** Profile photo data or URL; optional with max length 5000 characters */
-    @Size(max = 5000)
+    /** Profile photo data */
     private final String profilePhoto;
 
     /** Whether the user is currently online; cannot be null */
