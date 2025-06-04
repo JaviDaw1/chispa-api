@@ -246,7 +246,27 @@ VALUES
     ('Lucía', 'Campos', 'lucia.c', 'lucia@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
     ('Fernando', 'Morales', 'fernando.m', 'fernando@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
     ('Silvia', 'Vega', 'silvia.v', 'silvia@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
-    ('Óscar', 'Nieto', 'oscar.n', 'oscar@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER') ON DUPLICATE KEY
+    ('Óscar', 'Nieto', 'oscar.n', 'oscar@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Eva', 'Ramos', 'eva.r', 'eva@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Raúl', 'Jiménez', 'raul.j', 'raul@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Beatriz', 'Mora', 'bea.m', 'bea@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Iván', 'Campos', 'ivan.c', 'ivan@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Clara', 'Santos', 'clara.s', 'clara@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Luis', 'Marín', 'luis.m', 'luism@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Natalia', 'Gómez', 'natalia.g', 'natalia@gmail.com',
+     '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('David', 'Paredes', 'david.p', 'davidp@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER'),
+    ('Raquel', 'Delgado', 'raquel.d', 'raquel@gmail.com',
+     '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
+    ('Tomás', 'Nieto', 'tomas.n', 'tomas@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66',
+     'USER') ON DUPLICATE KEY
 UPDATE email=email;
 
 -- El resto de tus inserts y tablas permanecen igual.
@@ -274,7 +294,29 @@ VALUES(1, 'Ana', 'García', 'FEMALE', '1994-06-12', 'Madrid', 'Hola, soy Ana y m
       (17, 'Lucía', 'Campos', 'FEMALE', '1994-08-12', 'Zaragoza', 'Hola, soy Lucía, me encanta la naturaleza y las caminatas largas.', 'senderismo, naturaleza', 'https://randomuser.me/api/portraits/women/17.jpg', 0, '2025-05-11 20:50:00', 'CASUAL'),
       (18, 'Fernando', 'Morales', 'MALE', '1987-06-28', 'Alicante', 'Soy Fernando y disfruto del cine clásico y la fotografía.', 'cine, fotografía', 'https://randomuser.me/api/portraits/men/18.jpg', 1, '2025-05-13 07:00:00', 'FRIENDSHIP'),
       (19, 'Silvia', 'Vega', 'FEMALE', '1995-11-03', 'Sevilla', 'Soy Silvia y amo el arte en todas sus formas.', 'arte, música', 'https://randomuser.me/api/portraits/women/19.jpg', 0, '2025-05-12 21:00:00', 'SERIOUS'),
-      (20, 'Óscar', 'Nieto', 'MALE', '1990-07-15', 'Madrid', 'Soy Óscar y disfruto de la lectura y la buena comida.', 'lectura, gastronomía', 'https://randomuser.me/api/portraits/men/20.jpg', 1, '2025-05-13 06:30:00', 'CASUAL') ON DUPLICATE KEY
+      (20, 'Óscar', 'Nieto', 'MALE', '1990-07-15', 'Madrid', 'Soy Óscar y disfruto de la lectura y la buena comida.',
+       'lectura, gastronomía', 'https://randomuser.me/api/portraits/men/20.jpg', 1, '2025-05-13 06:30:00', 'CASUAL'),
+      (21, 'Eva', 'Ramos', 'FEMALE', '1993-03-11', 'Madrid', 'Me gusta el yoga y las caminatas largas.',
+       'yoga, naturaleza', 'https://randomuser.me/api/portraits/women/21.jpg', 1, '2025-06-03 08:00:00', 'LONG_TERM'),
+      (22, 'Raúl', 'Jiménez', 'MALE', '1990-09-07', 'Barcelona', 'Apasionado del deporte y la cocina.',
+       'fútbol, cocina', 'https://randomuser.me/api/portraits/men/22.jpg', 0, '2025-06-02 18:00:00', 'CASUAL'),
+      (23, 'Beatriz', 'Mora', 'FEMALE', '1996-01-22', 'Valencia', 'Amante de los libros y el mar.', 'lectura, playa',
+       'https://randomuser.me/api/portraits/women/23.jpg', 1, '2025-06-03 09:30:00', 'FRIENDSHIP'),
+      (24, 'Iván', 'Campos', 'MALE', '1989-06-30', 'Sevilla', 'Ingeniero que ama viajar.', 'viajes, fotografía',
+       'https://randomuser.me/api/portraits/men/24.jpg', 0, '2025-06-02 20:45:00', 'SERIOUS'),
+      (25, 'Clara', 'Santos', 'FEMALE', '1995-11-10', 'Granada', 'Artista de corazón.', 'pintura, museos',
+       'https://randomuser.me/api/portraits/women/25.jpg', 1, '2025-06-03 11:15:00', 'OPEN'),
+      (26, 'Luis', 'Marín', 'MALE', '1992-08-19', 'Bilbao', 'Fan del cine clásico.', 'cine, historia',
+       'https://randomuser.me/api/portraits/men/26.jpg', 0, '2025-06-01 23:10:00', 'MARRIAGE'),
+      (27, 'Natalia', 'Gómez', 'FEMALE', '1991-05-06', 'Zaragoza', 'Buscando nuevas amistades.', 'música, senderismo',
+       'https://randomuser.me/api/portraits/women/27.jpg', 0, '2025-06-03 07:40:00', 'FRIENDSHIP'),
+      (28, 'David', 'Paredes', 'MALE', '1993-02-13', 'Alicante', 'Geek del cine y los cómics.', 'cómics, series',
+       'https://randomuser.me/api/portraits/men/28.jpg', 1, '2025-06-03 10:20:00', 'HOOKUP'),
+      (29, 'Raquel', 'Delgado', 'FEMALE', '1994-10-01', 'Murcia', 'Diseñadora gráfica curiosa y creativa.',
+       'diseño, libros', 'https://randomuser.me/api/portraits/women/29.jpg', 0, '2025-06-02 14:00:00', 'NOT_SURE'),
+      (30, 'Tomás', 'Nieto', 'MALE', '1988-12-05', 'Madrid', 'Amante de la buena conversación y la música indie.',
+       'charlar, música indie', 'https://randomuser.me/api/portraits/men/30.jpg', 1, '2025-06-03 09:50:00',
+       'CASUAL') ON DUPLICATE KEY
 UPDATE user_id=user_id;
 
 
@@ -300,5 +342,15 @@ VALUES
     (17, 18, 30, 50, 'MALE'),
     (18, 18, 40, 75, 'FEMALE'),
     (19, 20, 35, 60, 'MALE'),
-    (20, 18, 35, 100, 'FEMALE') ON DUPLICATE KEY
+    (20, 18, 35, 100, 'FEMALE'),
+    (21, 25, 35, 50, 'MALE'),
+    (22, 20, 35, 75, 'FEMALE'),
+    (23, 22, 32, 100, 'MALE'),
+    (24, 25, 40, 100, 'FEMALE'),
+    (25, 20, 30, 60, 'MALE'),
+    (26, 28, 38, 80, 'FEMALE'),
+    (27, 22, 34, 70, 'MALE'),
+    (28, 20, 30, 50, 'FEMALE'),
+    (29, 24, 35, 90, 'MALE'),
+    (30, 26, 36, 100, 'FEMALE') ON DUPLICATE KEY
 UPDATE user_id=user_id;
