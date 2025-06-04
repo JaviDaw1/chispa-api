@@ -59,6 +59,12 @@ public class Users implements UserDetails {
     @Column(name = "reset_token_expiry")
     private LocalDateTime resetTokenExpiry;
 
+    private String location;
+
+    private Double latitude;
+
+    private Double longitude;
+
     public Users(String firstname, String lastname, String username, String email, String password) {
         this.firstname = firstname;
         this.username = username;

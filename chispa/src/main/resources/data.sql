@@ -1,33 +1,56 @@
-DROP DATABASE chispa;
+DROP
+DATABASE IF EXISTS chispa;
 
--- Crear la base de datos "chispa" si no existe --
+-- Crear la base de datos "chispa"
 CREATE DATABASE IF NOT EXISTS chispa
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
--- Usar la base de datos "chispa" --
 USE chispa;
 
-
--- Tabla de usuarios --
+-- Tabla de usuarios (actualizada con location, latitude, longitude)
 CREATE TABLE IF NOT EXISTS user_ (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(100) NOT NULL,
+                                     id
+                                     INT
+                                     AUTO_INCREMENT
+                                     PRIMARY
+                                     KEY,
+                                     firstname
+                                     VARCHAR
+(
+                                     100
+) NOT NULL,
     lastname VARCHAR(100) NOT NULL,
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('USER', 'ADMIN') DEFAULT 'USER',
     reset_token VARCHAR(255),
-    reset_token_expiry DATETIME
+    reset_token_expiry DATETIME,
+    location VARCHAR
+(
+    255
+), -- NUEVO
+    latitude DOUBLE, -- NUEVO
+    longitude DOUBLE -- NUEVO
     );
 
-
--- Tabla perfil --
+-- Tabla perfil
 CREATE TABLE IF NOT EXISTS profile (
-     id INT AUTO_INCREMENT PRIMARY KEY,
-     user_id INT NOT NULL,
-     name VARCHAR(100) NOT NULL,
+                                       id
+                                       INT
+                                       AUTO_INCREMENT
+                                       PRIMARY
+                                       KEY,
+                                       user_id
+                                       INT
+                                       NOT
+                                       NULL,
+                                       name
+                                       VARCHAR
+(
+                                       100
+) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
     gender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
     birthDate DATE NOT NULL,
@@ -41,71 +64,167 @@ CREATE TABLE IF NOT EXISTS profile (
     FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Tabla de preferencias de usuario --
+-- Tabla de preferencias de usuario
 CREATE TABLE IF NOT EXISTS preferences (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    minAgeRange INT NOT NULL,
-    maxAgeRange INT NOT NULL,
-    maxDistance INT NOT NULL,
-    favoriteGender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
+                                           id
+                                           INT
+                                           AUTO_INCREMENT
+                                           PRIMARY
+                                           KEY,
+                                           user_id
+                                           INT
+                                           NOT
+                                           NULL,
+                                           minAgeRange
+                                           INT
+                                           NOT
+                                           NULL,
+                                           maxAgeRange
+                                           INT
+                                           NOT
+                                           NULL,
+                                           maxDistance
+                                           INT
+                                           NOT
+                                           NULL,
+                                           favoriteGender
+                                           ENUM
+(
+                                           'MALE',
+                                           'FEMALE',
+                                           'OTHER'
+) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Tabla de coincidencias (matches) --
+-- Tabla de coincidencias (matches)
 CREATE TABLE IF NOT EXISTS matches (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user1_id INT NOT NULL,
-    user2_id INT NOT NULL,
-    matchDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    matchState ENUM('MATCHED', 'BLOCKED') DEFAULT 'MATCHED',
+                                       id
+                                       INT
+                                       AUTO_INCREMENT
+                                       PRIMARY
+                                       KEY,
+                                       user1_id
+                                       INT
+                                       NOT
+                                       NULL,
+                                       user2_id
+                                       INT
+                                       NOT
+                                       NULL,
+                                       matchDate
+                                       DATETIME
+                                       DEFAULT
+                                       CURRENT_TIMESTAMP,
+                                       matchState
+                                       ENUM
+(
+                                       'MATCHED',
+                                       'BLOCKED'
+) DEFAULT 'MATCHED',
     FOREIGN KEY (user1_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (user2_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Tabla de mensajes entre usuarios --
+-- Tabla de mensajes entre usuarios
 CREATE TABLE IF NOT EXISTS messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    match_id INT NOT NULL,
-    senderUser_id INT NOT NULL,
-    receiverUser_id INT NOT NULL,
-    content TEXT NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    sRead TINYINT(1) DEFAULT 0,
+                                        id
+                                        INT
+                                        AUTO_INCREMENT
+                                        PRIMARY
+                                        KEY,
+                                        match_id
+                                        INT
+                                        NOT
+                                        NULL,
+                                        senderUser_id
+                                        INT
+                                        NOT
+                                        NULL,
+                                        receiverUser_id
+                                        INT
+                                        NOT
+                                        NULL,
+                                        content
+                                        TEXT
+                                        NOT
+                                        NULL,
+                                        timestamp
+                                        DATETIME
+                                        DEFAULT
+                                        CURRENT_TIMESTAMP,
+                                        sRead
+                                        TINYINT
+(
+                                        1
+) DEFAULT 0,
     messageState ENUM('SEND', 'BLOCKED') DEFAULT 'SEND',
     FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE,
     FOREIGN KEY (senderUser_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Tabla de "me gusta" entre usuarios --
+-- Tabla de "me gusta" entre usuarios
 CREATE TABLE IF NOT EXISTS likes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    liker_id INT NOT NULL,
-    liked_id INT NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    state ENUM('LIKED', 'BLOCKED') DEFAULT 'LIKED',
+                                     id
+                                     INT
+                                     AUTO_INCREMENT
+                                     PRIMARY
+                                     KEY,
+                                     liker_id
+                                     INT
+                                     NOT
+                                     NULL,
+                                     liked_id
+                                     INT
+                                     NOT
+                                     NULL,
+                                     timestamp
+                                     DATETIME
+                                     DEFAULT
+                                     CURRENT_TIMESTAMP,
+                                     state
+                                     ENUM
+(
+                                     'LIKED',
+                                     'BLOCKED'
+) DEFAULT 'LIKED',
     FOREIGN KEY (liker_id) REFERENCES user_(id) ON DELETE CASCADE,
     FOREIGN KEY (liked_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Tabla de bloqueos entre usuarios --
+-- Tabla de bloqueos entre usuarios
 CREATE TABLE IF NOT EXISTS blocks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    reporter_id INT NOT NULL,
-    reported_id INT NOT NULL,
-    blockDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    blockReason TEXT,
-    FOREIGN KEY (reporter_id) REFERENCES user_(id) ON DELETE CASCADE,
+                                      id
+                                      INT
+                                      AUTO_INCREMENT
+                                      PRIMARY
+                                      KEY,
+                                      reporter_id
+                                      INT
+                                      NOT
+                                      NULL,
+                                      reported_id
+                                      INT
+                                      NOT
+                                      NULL,
+                                      blockDate
+                                      DATETIME
+                                      DEFAULT
+                                      CURRENT_TIMESTAMP,
+                                      blockReason
+                                      TEXT,
+                                      FOREIGN
+                                      KEY
+(
+                                      reporter_id
+) REFERENCES user_
+(
+    id
+) ON DELETE CASCADE,
     FOREIGN KEY (reported_id) REFERENCES user_(id) ON DELETE CASCADE
     );
 
-
--- Usuarios --
+-- Usuarios (ejemplo, puedes actualizar los inserts si quieres añadir location, latitude, longitude)
 INSERT INTO user_ (firstname, lastname, username, email, password, role)
 VALUES
     ('Ana', 'García', 'ana.g', 'ana@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
@@ -129,6 +248,8 @@ VALUES
     ('Silvia', 'Vega', 'silvia.v', 'silvia@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER'),
     ('Óscar', 'Nieto', 'oscar.n', 'oscar@gmail.com', '$2a$10$yc1oAMv7Wwsb.pFem7bKU.df9Sc9ADx9Zn0oZgG/g7HtpaSTIHv66', 'USER') ON DUPLICATE KEY
 UPDATE email=email;
+
+-- El resto de tus inserts y tablas permanecen igual.
 
 
 -- Perfiles

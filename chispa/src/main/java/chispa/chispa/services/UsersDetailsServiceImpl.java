@@ -77,7 +77,6 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
      * @return The saved UserDetails.
      */
     public UserDetails create(SignupRequest signupRequest) {
-        // Build a new Users object from signup request
         Users user = new Users(
                 signupRequest.getFirstname(),
                 signupRequest.getLastname(),
@@ -91,6 +90,11 @@ public class UsersDetailsServiceImpl implements UserDetailsService {
                 ? signupRequest.getUserRole()
                 : Role.valueOf("USER");
         user.setRole(role);
+
+        // NUEVO: Guarda la ubicación
+        user.setLocation(signupRequest.getLocation());
+        user.setLatitude(signupRequest.getLatitude());
+        user.setLongitude(signupRequest.getLongitude());
 
         return userDetailsRepository.save(user);
     }

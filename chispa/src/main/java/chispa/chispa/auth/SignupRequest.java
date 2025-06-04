@@ -27,4 +27,8 @@ public class SignupRequest {
 
     // Role assigned to the user (e.g., ADMIN or USER)
     private Role UserRole;
+
+    private String location;    // Dirección o ciudad
+    private Double latitude;    // Latitud
+    private Double longitude;
 }
