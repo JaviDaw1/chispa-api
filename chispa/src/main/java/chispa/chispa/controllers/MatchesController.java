@@ -9,6 +9,8 @@ import chispa.chispa.services.MatchesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,6 +73,12 @@ public class MatchesController {
     @PutMapping("/{id}")
     public ResponseEntity<MatchesResponseDTO> putMatch(@PathVariable Long id, @RequestBody MatchesRequestDTO matchesRequestDto) {
         log.info("putMatch");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var match = matchesService.findById(id);
+        if (!match.getUser1().getEmail().equals(username) && !match.getUser2().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         Matches matchUpdated = matchesService.update(id, matchesMapper.toModel(matchesRequestDto));
         return ResponseEntity.ok(matchesMapper.toResponse(matchUpdated));
     }
@@ -95,6 +103,12 @@ public class MatchesController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
         log.info("deleteMatch");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var match = matchesService.findById(id);
+        if (!match.getUser1().getEmail().equals(username) && !match.getUser2().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         matchesService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

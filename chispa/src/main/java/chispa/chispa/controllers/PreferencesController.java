@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -85,6 +87,12 @@ public class PreferencesController {
     @PutMapping("/{id}")
     public ResponseEntity<PreferencesResponseDTO> putPreferences(@PathVariable Long id, @RequestBody PreferencesRequestDTO preferencesRequestDto) {
         log.info("putPreferences");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var preferences = preferencesService.findById(id);
+        if (!preferences.getUser().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         return ResponseEntity.ok(preferencesMapper.toResponse(preferencesService.update(id, preferencesMapper.toModel(preferencesRequestDto))));
     }
 
@@ -95,6 +103,12 @@ public class PreferencesController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePreferences(@PathVariable Long id) {
         log.info("deletePreferences");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var preferences = preferencesService.findById(id);
+        if (!preferences.getUser().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         preferencesService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -8,6 +8,8 @@ import chispa.chispa.services.BlocksService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -108,10 +110,14 @@ public class BlocksController {
      * @param id Block ID
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<BlocksResponseDTO> deleteBlocks(
-            @PathVariable Long id
-    ) {
+    public ResponseEntity<BlocksResponseDTO> deleteBlocks(@PathVariable Long id) {
         log.info("deleteBlocks");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var block = blocksService.findById(id);
+        if (!block.getReporter().getEmail().equals(username) && !block.getReported().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         blocksService.deleteByReportedId(id);
         blocksService.deleteByReporterId(id);
         blocksService.deleteById(id);

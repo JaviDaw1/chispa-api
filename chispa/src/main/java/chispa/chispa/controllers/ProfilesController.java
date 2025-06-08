@@ -8,6 +8,8 @@ import chispa.chispa.services.ProfilesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -82,6 +84,12 @@ public class ProfilesController {
     @PutMapping("/{id}")
     public ResponseEntity<ProfileResponseDTO> putProfile(@PathVariable Long id, @RequestBody ProfileRequestDTO profileRequestDto) {
         log.info("putProfile");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var profile = profilesService.findById(id);
+        if (!profile.getUser().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         return ResponseEntity.ok(profileMapper.toResponse(profilesService.update(id, profileMapper.toModel(profileRequestDto))));
     }
 
@@ -117,6 +125,12 @@ public class ProfilesController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
         log.info("deleteProfile");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        var profile = profilesService.findById(id);
+        if (!profile.getUser().getEmail().equals(username) && !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(403).build();
+        }
         profilesService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
