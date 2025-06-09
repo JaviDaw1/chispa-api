@@ -43,8 +43,8 @@ public class ProfilesServiceImpl implements ProfilesService {
 
     @Override
     public Profile update(Long id, Profile profile) {
-        // Find existing profile and update its fields
         Profile profileUpdated = this.findById(id);
+
         profileUpdated.setName(profile.getName());
         profileUpdated.setBio(profile.getBio());
         profileUpdated.setProfilePhoto(profile.getProfilePhoto());
@@ -55,6 +55,15 @@ public class ProfilesServiceImpl implements ProfilesService {
         profileUpdated.setLastName(profile.getLastName());
         profileUpdated.setPreferredRelationship(profile.getPreferredRelationship());
         profileUpdated.setLocation(profile.getLocation());
+
+        if (profile.getLocation() != null) {
+            var user = profileUpdated.getUser();
+            if (user != null) {
+                user.setLocation(profile.getLocation());
+                usersRepository.save(user);
+            }
+        }
+
         return profileRepository.save(profileUpdated);
     }
 
